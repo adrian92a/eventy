@@ -1,3 +1,8 @@
+/**
+ * "Eventy" web application
+ * author: Marlena Łukomska-Rogala
+ */
+
 package pl.net.rogala.eventy;
 
 import org.springframework.boot.SpringApplication;

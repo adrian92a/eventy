@@ -1,6 +1,5 @@
 package pl.net.rogala.eventy.service;
 
-import com.sun.xml.internal.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -40,7 +39,6 @@ public class UserService {
      */
 
 // TODO: Check if given in userRegisterForm email and nick are present in database (both should be unique)
-
     public void registerUser(UserRegisterForm userRegisterForm) {
         User user = new User();
         user.setEmail(userRegisterForm.getEmail());
@@ -49,5 +47,4 @@ public class UserService {
         setDefaultRole(user);
         userRepository.save(user);
     }
-
 }

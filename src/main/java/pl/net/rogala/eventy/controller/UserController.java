@@ -23,7 +23,7 @@ public class UserController {
     }
 
     @GetMapping("/register")
-    public String showUserRegisterRorm(Model model){
+    public String showUserRegisterForm(Model model){
         model.addAttribute("userRegisterForm", new UserRegisterForm());
         return "user/registerUser";
     }
@@ -34,6 +34,11 @@ public class UserController {
             return "user/registerUser";
         }
         userService.registerUser(userRegisterForm);
-        return "redirect:/";
+        return "redirect:/login";
+    }
+
+    @GetMapping("/login")
+    public String showLoginForm(){
+        return"user/loginUser";
     }
 }

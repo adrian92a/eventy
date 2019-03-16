@@ -16,15 +16,17 @@ import java.util.List;
 public class EventService {
 
     private EventRepository eventRepository;
-
     private UserRepository userRepository;
+
+    private UserService userService;
 
     private NewEventForm eventForm;
 
     @Autowired
-    public EventService(EventRepository eventRepository, UserRepository userRepository, NewEventForm eventForm) {
+    public EventService(EventRepository eventRepository, UserRepository userRepository, UserService userService, NewEventForm eventForm) {
         this.eventRepository = eventRepository;
         this.userRepository = userRepository;
+        this.userService = userService;
         this.eventForm = eventForm;
     }
 
@@ -45,6 +47,8 @@ public class EventService {
         event.setStopDate(eventForm.getStopDate());
         User owner = userRepository.findByEmail(authentication.getName()).get();
         event.setOwner(owner);
+//        userRepository.addOrganizerRoleForEventOwner(owner.getId());
+        userService.addOrganizerRole(owner);
         eventRepository.save(event);
     }
 }

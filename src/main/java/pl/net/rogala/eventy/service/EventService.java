@@ -7,6 +7,7 @@ import pl.net.rogala.eventy.entity.Event;
 import pl.net.rogala.eventy.repository.EventRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EventService {
@@ -20,5 +21,9 @@ public class EventService {
 
     public List<Event> showEventList(){
         return eventRepository.findAll(Sort.by("startDate"));
+    }
+
+    public Optional<Event> getSingleEvent(Long eventId) {
+        return eventRepository.findById(eventId);
     }
 }

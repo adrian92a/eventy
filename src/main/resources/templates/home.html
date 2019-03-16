@@ -13,7 +13,17 @@
 <div th:if="${eventList.empty}">
     <span colspan="2">Nie ma żadnego wydarzenia</span>
 </div>
+<form th:action="@{/findEvents}" >
+        Szukaj posta: <input type="text" name="name"><br>
+    <select  class="form-control"  name="option">
+        <option  value = "przyszłe" selected>przyszłe</option >
+        <option value = "trwające i przyszłe">trwające i przyszłe</option>
+        <option value = "wszystkie">wszystkie</option>
 
+    </select>
+    <br>
+    <input type="submit" value="Submit">
+</form>
 <div th:each="event:${eventList}">
     <h4 th:text="${event.name}">Nazwa</h4>
     <div th:text="${#temporals.format(event.startDate,'dd MM yyyy HH:mm')}">Start</div>

@@ -9,6 +9,8 @@ import javax.persistence.*;
 @Getter
 @Setter
 public class Role {
+    public Role() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

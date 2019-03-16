@@ -19,6 +19,7 @@
     <div th:text="${#temporals.format(event.startDate,'dd MM yyyy HH:mm')}">Start</div>
     <div th:text="${#temporals.format(event.stopDate, 'dd-MM-yyyy HH:mm')}">Stop</div>
     <p th:text="${#strings.substring(event.decription, 0, 49)}">Skrócony opis</p>
+    <div th:text="${event.getOwner().nick}"></div>
 </div>
 
 <!--<table>-->

@@ -32,6 +32,8 @@ public class UserService {
         user.addRole(role);
     }
 
+
+
     /**
      * Register new user in database
      *

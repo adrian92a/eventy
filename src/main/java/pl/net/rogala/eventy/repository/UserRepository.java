@@ -26,7 +26,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
      */
     Optional<User>findByNick(String nick);
 
-    @Modifying
-    @Query("update user_role ur set ur.role_id= :roleId, ur.user_id = userId")
-    void settingRoleAsOrganizer(@Param("roleId") Long roleId, @Param("userId") Long userId);
 }

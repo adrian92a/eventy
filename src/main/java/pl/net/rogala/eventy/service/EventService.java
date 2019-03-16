@@ -33,8 +33,9 @@ public class EventService {
     }
 
     /**
-     * adding new event to database; setting logged user as owner of addied event
-     * @param authentication
+     * adding new event to database; setting logged user as owner of added event
+     * @param authentication gives logged user's e-mail
+     * @param eventForm form to adding new event
      */
     public void addNewEvent(NewEventForm eventForm, Authentication authentication){
         Event event = new Event();
@@ -44,8 +45,6 @@ public class EventService {
         event.setStopDate(eventForm.getStopDate());
         User owner = userRepository.findByEmail(authentication.getName()).get();
         event.setOwner(owner);
-        Long ownerId = owner.getId();
-        userRepository.settingRoleAsOrganizer(2L, ownerId);
         eventRepository.save(event);
     }
 }

@@ -47,4 +47,6 @@ public class UserService {
         setDefaultRole(user);
         userRepository.save(user);
     }
+
+    // Test commita
 }

@@ -5,7 +5,7 @@ import lombok.Setter;
 import pl.net.rogala.eventy.model.EventDto;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -22,11 +22,11 @@ public class Event {
     private String decription;
 
     @Column(nullable = false)
-    private LocalDateTime startDate;
+    private LocalDate startDate;
 
-    private LocalDateTime stopDate;
+    private LocalDate stopDate;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="user_id")
     private User owner;
 

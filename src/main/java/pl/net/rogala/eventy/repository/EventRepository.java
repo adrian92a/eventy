@@ -14,12 +14,18 @@ import java.util.Set;
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long> {
 
-    @Query("Select e from Event e where e.name like '%?1%' and startDate>?2")
-    List<Event> findFutureEvents(String name, LocalDate date);
 
-    @Query("Select e from Event e where e.name like '%?1%' and startDate>=?2")
-    List<Event> findFutureAndActuallyEvents(String name, LocalDate date);
+  List<Event> findByNameIsContainingAndStartDateEqualsOrStartDateIsAfterIgnoreCase(String name,LocalDateTime date1,LocalDateTime date2);
+  List<Event> findByNameIsContainingAndStartDateIsAfterIgnoreCase(String name,LocalDateTime date);
+  List<Event> findByNameIsContainingIgnoreCase(String name);
+
+
+  @Query("Select e from Event e where e.name like '%?1%' and e.startDate>?2")
+    List<Event> findFutureEvents(String name, LocalDateTime date);
+
+    @Query("Select e from Event e where e.name like '%?1%' and e.startDate>=?2")
+    List<Event> findFutureAndActuallyEvents(String name, LocalDateTime date);
 
     @Query("Select e from Event e where e.name like '%?1%'")
-    List<Event> findEvents(String name, LocalDate date);
+    List<Event> findEvents(String name, LocalDateTime date);
 }

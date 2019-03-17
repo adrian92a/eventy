@@ -2,6 +2,7 @@ package pl.net.rogala.eventy.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.net.rogala.eventy.model.EventDto;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -28,4 +29,8 @@ public class Event {
     @OneToOne
     @JoinColumn(name="user_id")
     private User owner;
+
+    public EventDto toEventDto() {
+        return new EventDto(this.id, this.name, this.decription, this.startDate, this.stopDate);
+    }
 }

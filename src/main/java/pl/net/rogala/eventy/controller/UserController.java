@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import pl.net.rogala.eventy.model.FindEventDto;
 import pl.net.rogala.eventy.form.UserRegisterForm;
 import pl.net.rogala.eventy.service.EventService;
 import pl.net.rogala.eventy.service.UserService;
@@ -55,6 +56,8 @@ public class UserController {
     public String home(Model model, Authentication authentication, Model modelForEventList){
         model.addAttribute("loggedUser", authentication.getName());
         modelForEventList.addAttribute("eventList",eventService.showEventList());
+        model.addAttribute("findEventDto",new FindEventDto());
+//        model.addAttribute ("enumList", FindEventDto.SelectValue.values());
         return "home";
     }
 

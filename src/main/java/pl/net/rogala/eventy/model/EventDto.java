@@ -1,15 +1,16 @@
 package pl.net.rogala.eventy.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class EventDto {
     private Long id;
     private String name;
     private String decription;
-    private LocalDateTime startDate;
-    private LocalDateTime stopDate;
+    private LocalDate startDate;
+    private LocalDate stopDate;
 
-    public EventDto(Long id, String name, String decription, LocalDateTime startDate, LocalDateTime stopDate) {
+    public EventDto(Long id, String name, String decription, LocalDate startDate, LocalDate stopDate) {
         this.id = id;
         this.name = name;
         this.decription = decription;
@@ -29,11 +30,11 @@ public class EventDto {
         return decription;
     }
 
-    public LocalDateTime getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public LocalDateTime getStopDate() {
+    public LocalDate getStopDate() {
         return stopDate;
     }
 }

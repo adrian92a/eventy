@@ -16,6 +16,7 @@ import pl.net.rogala.eventy.form.NewEventForm;
 import pl.net.rogala.eventy.repository.EventRepository;
 import pl.net.rogala.eventy.repository.UserRepository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,10 +55,10 @@ public class EventService {
         }
         if (findEventDto.getEventType().equals(EventType.CURRENT)) {
 
-            booleanExpression = booleanExpression.and(event.startDate.after(LocalDateTime.now()).or(event.startDate.eq(LocalDateTime.now())));
+            booleanExpression = booleanExpression.and(event.startDate.after(LocalDate.now()).or(event.startDate.eq(LocalDate.now())));
         }
         if (findEventDto.getEventType().equals(EventType.FUTURE)) {
-            booleanExpression = booleanExpression.and(event.startDate.eq(LocalDateTime.now()));
+            booleanExpression = booleanExpression.and(event.startDate.eq(LocalDate.now()));
         }
 
         List<Event> all = eventRepository.findAll(booleanExpression);

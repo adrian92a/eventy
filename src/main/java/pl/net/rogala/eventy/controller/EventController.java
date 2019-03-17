@@ -1,13 +1,23 @@
 package pl.net.rogala.eventy.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import pl.net.rogala.eventy.entity.Event;
+import pl.net.rogala.eventy.form.NewEventForm;
+import pl.net.rogala.eventy.model.EventDto;
+import pl.net.rogala.eventy.model.EventType;
+import pl.net.rogala.eventy.model.FindEventDto;
 import pl.net.rogala.eventy.service.EventService;
 import javax.validation.Valid;
 
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class EventController {

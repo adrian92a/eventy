@@ -11,11 +11,6 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 public class Role {
-    public Role() {
-    }
-
-    public Role() {
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

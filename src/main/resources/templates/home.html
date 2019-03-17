@@ -36,7 +36,7 @@
     <div th:text="${#temporals.format(event.stopDate, 'dd-MM-yyyy HH:mm')}">Stop</div>
     <p th:if="${#strings.length(event.decription)>49}" th:text="${#strings.substring(event.decription,0,49)}">Skrócony opis</p>
     <p th:unless="${#strings.length(event.decription)>49}" th:text="${event.decription}">Skrócony opis</p>
-    <div th:text="${event.getOwner().nick}"></div>
+    <!--<div th:text="${event.getOwner().nick}"></div>-->
 
 </div>
 

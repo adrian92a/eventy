@@ -8,8 +8,27 @@
 
 <h1 th:text="${event.name}">Event title</h1>
 Data rozpoczęcia: <span th:text="${#temporals.format(event.startDate,'dd-MM-yyyy HH:mm')}">2019-03-02 11:07:10</span>
-<br>Data zakończenia: <span th:text="${#temporals.format(event.stopDate, 'dd-MM-yyyy HH:mm')}">2019-03-02 11:07:10</span>
+<br>Data zakończenia: <span
+        th:text="${#temporals.format(event.stopDate, 'dd-MM-yyyy HH:mm')}">2019-03-02 11:07:10</span>
 <p th:text="${event.decription}"> Event description</p>
+
+<!-- PK -->
+
+<div th:if="${event.getUser().getEmail()} != null">
+
+    <p>Twórca wydarzenia: <span th:text="${event.getUser().getEmail()}"></span></p>
+    <input type="submit" value="Wypisz z wydarzenie">
+</div>
+
+<div th:unless="${event.getUser().getEmail()}">
+
+    <div><p th:text="Użytkownik nie jest przypisany do wydarzenia"></div>
+    <input type="submit" value="Zapisz się na wydarzenie">
+</div>
+
+<!--<p th:if="${event.getUser().getEmail()}" th:text="${event.getUser().getEmail()}"></p>-->
+<!--<input type="submit" value="Wypisz z wydarzenie">-->
+
 
 </body>
 </html>

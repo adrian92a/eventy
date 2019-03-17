@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -27,5 +28,11 @@ public class Event {
 
     @OneToOne
     @JoinColumn(name="user_id")
-    private User owner;
+    private User user;
+
+//    @ManyToMany
+//    @JoinTable(name = "assigned_to_event")
+//    private Set<User> users;
+
+
 }

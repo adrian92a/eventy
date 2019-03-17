@@ -2,6 +2,7 @@ package pl.net.rogala.eventy.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.HashSet;

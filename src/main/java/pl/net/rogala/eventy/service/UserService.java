@@ -1,19 +1,26 @@
 package pl.net.rogala.eventy.service;
 
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import pl.net.rogala.eventy.entity.Event;
 import pl.net.rogala.eventy.entity.Role;
 import pl.net.rogala.eventy.entity.User;
 import pl.net.rogala.eventy.form.UserRegisterForm;
 import pl.net.rogala.eventy.repository.RoleRepository;
 import pl.net.rogala.eventy.repository.UserRepository;
 
+@Getter
 @Service
 public class UserService {
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
     private RoleRepository roleRepository;
+    private boolean logged;
 
     @Autowired
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
@@ -47,4 +54,8 @@ public class UserService {
         setDefaultRole(user);
         userRepository.save(user);
     }
+
+
+
+
 }

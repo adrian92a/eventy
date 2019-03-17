@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SingleEvent</title>
+</head>
+<body>
+
+<h1 th:text="${event.name}">Event title</h1>
+Data rozpoczęcia: <span th:text="${event.getStartDate()}">2019-03-02 11:07:10</span>
+<br>Data zakończenia: <span th:text="${event.getStopDate()}">2019-03-02 11:07:10</span>
+<p th:text="${event.decription}"> Event description</p>
+
+</body>
+</html>

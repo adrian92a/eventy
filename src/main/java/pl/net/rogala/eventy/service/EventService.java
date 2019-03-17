@@ -36,8 +36,8 @@ public class EventService {
     }
 
 
-    public List<Comment> getAllComments()
-    {return  commentRepository.findAll();
+    public List<Comment> getAllCommentsToEvent(Long eventId)
+    {return  commentRepository.findAllByEvent_Id(eventId);
     }
 
     public void addNewComment(Long eventId, String userEmail, String body) {

@@ -34,7 +34,7 @@ public class EventController {
         boolean showCommentForm = authentication != null;
         model.addAttribute("showCommentForm", showCommentForm);
         model.addAttribute("event", eventOptional.get());
-        model.addAttribute("comments", eventService.getAllComments());
+        model.addAttribute("comments", eventService.getAllCommentsToEvent(Long.parseLong(eventId)));
 
 
         return "event/showSingleEvent";
@@ -44,10 +44,10 @@ public class EventController {
     public String handleNewCommentForm(
             @PathVariable String id,
             @RequestParam String commentBody,
-            @RequestParam String postId,
+            @RequestParam String eventId,
             Authentication authentication
     ) {
         eventService.addNewComment(Long.parseLong(id), authentication.getName(), commentBody);
-        return "redirect:/event/" + postId;
+        return "redirect:/event/" + eventId;
     }
 }

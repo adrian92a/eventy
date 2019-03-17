@@ -16,7 +16,7 @@ Data rozpoczęcia: <span th:text="${#temporals.format(event.startDate,'dd-MM-yyy
 <div th:if="${showCommentForm}">
     <form method="post" th:action="@{/event/{id}/comment/add(id=${event.id})}">
         <textarea name="commentBody"></textarea>
-        <input type="hidden" name="postId" th:value="${event.id}">
+        <input type="hidden" name="eventId" th:value="${event.id}">
         <input type="submit" value="Dodaj komentarz">
     </form>
 </div>

@@ -11,6 +11,7 @@ import pl.net.rogala.eventy.form.UserRegisterForm;
 import pl.net.rogala.eventy.service.EventService;
 import pl.net.rogala.eventy.service.UserService;
 
+
 import javax.validation.Valid;
 
 @Controller
@@ -19,8 +20,9 @@ public class UserController {
     private UserService userService;
     private EventService eventService;
 
+
     @Autowired
-    public UserController(UserService userService, EventService eventService) {
+    public UserController(UserService userService, EventService eventService){
         this.userService = userService;
         this.eventService = eventService;
     }

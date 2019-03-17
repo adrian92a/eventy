@@ -9,6 +9,8 @@ import pl.net.rogala.eventy.form.UserRegisterForm;
 import pl.net.rogala.eventy.repository.RoleRepository;
 import pl.net.rogala.eventy.repository.UserRepository;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
     private UserRepository userRepository;
@@ -38,15 +40,18 @@ public class UserService {
      * @param userRegisterForm
      */
 
-// TODO: Check if given in userRegisterForm email and nick are present in database (both should be unique)
     public void registerUser(UserRegisterForm userRegisterForm) {
-        User user = new User();
-        user.setEmail(userRegisterForm.getEmail());
-        user.setNick(userRegisterForm.getNick());
-        user.setPassword(passwordEncoder.encode(userRegisterForm.getPassword()));
-        setDefaultRole(user);
-        userRepository.save(user);
+        Optional<User> userByEmail = userRepository.findByEmail(userRegisterForm.getEmail());
+        if (!userByEmail.isPresent()) {
+            User user = new User();
+            user.setEmail(userRegisterForm.getEmail());
+            user.setNick(userRegisterForm.getNick());
+            user.setPassword(passwordEncoder.encode(userRegisterForm.getPassword()));
+            setDefaultRole(user);
+            userRepository.save(user);
+        } else {
+            System.out.println("Taki użytkownik istnieje w bazie");
+        }
     }
 
-    // Test
 }

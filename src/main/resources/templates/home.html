@@ -15,10 +15,13 @@
 </div>
 
 <div th:each="event:${eventList}">
-    <h4 th:text="${event.name}">Nazwa</h4>
-    <div th:text="${#temporals.format(event.startDate,'dd MM yyyy HH:mm')}">Start</div>
+    <h2>
+        <a th:text="${event.name}" th:href="@{/event/{eventId}(eventId=${event.id})}">Nazwa</a>
+    </h2>
+    <div th:text="${#temporals.format(event.startDate,'dd-MM-yyyy HH:mm')}">Start</div>
     <div th:text="${#temporals.format(event.stopDate, 'dd-MM-yyyy HH:mm')}">Stop</div>
-    <p th:text="${#strings.substring(event.decription, 0, 49)}">Skrócony opis</p>
+    <p th:if="${#strings.length(event.decription)>49}" th:text="${#strings.substring(event.decription,0,49)}">Skrócony opis</p>
+    <p th:unless="${#strings.length(event.decription)>49}" th:text="${event.decription}">Skrócony opis</p>
 </div>
 
 <!--<table>-->

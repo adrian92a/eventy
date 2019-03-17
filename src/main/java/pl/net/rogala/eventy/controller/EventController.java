@@ -20,10 +20,12 @@ public class EventController {
     private EventService eventService;
 
 
+
     @Autowired
     public EventController(EventService eventService) {
         this.eventService = eventService;
     }
+
 
     @GetMapping("/event/{eventId}")
     public String showSingleEvent(@PathVariable String eventId, Authentication authentication, Model model) {

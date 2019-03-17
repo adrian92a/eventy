@@ -10,6 +10,7 @@ import pl.net.rogala.eventy.form.NewEventForm;
 import pl.net.rogala.eventy.repository.EventRepository;
 import pl.net.rogala.eventy.repository.UserRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -47,8 +48,13 @@ public class EventService {
         event.setStopDate(eventForm.getStopDate());
         User owner = userRepository.findByEmail(authentication.getName()).get();
         event.setOwner(owner);
-//        userRepository.addOrganizerRoleForEventOwner(owner.getId());
         userService.addOrganizerRole(owner);
         eventRepository.save(event);
+    }
+
+    public List<Event> getListOfFutureEvents(){
+//        return eventRepository.findFutureEvents(LocalDate.now());
+
+    return eventRepository.findAll();
     }
 }

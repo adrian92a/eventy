@@ -10,10 +10,6 @@
 <h3>Zalogowany użytkownik:  <span th:text="${loggedUser}"></span></h3>
 <h3>Lista aktualnych i nadchodzących wydarzeń:</h3>
 
-<div th:if="${eventList.empty}">
-    <span colspan="2">Nie ma żadnego wydarzenia</span>
-</div>
-
 <div th:each="event:${eventList}">
     <h2>
         <a th:text="${event.name}" th:href="@{/event/{eventId}(eventId=${event.id})}">Nazwa</a>
@@ -22,28 +18,9 @@
     <div th:text="${#temporals.format(event.stopDate, 'dd-MM-yyyy HH:mm')}">Stop</div>
     <p th:if="${#strings.length(event.decription)>49}" th:text="${#strings.substring(event.decription,0,49)}">Skrócony opis</p>
     <p th:unless="${#strings.length(event.decription)>49}" th:text="${event.decription}">Skrócony opis</p>
+    <div th:text="${event.getOwner().nick}"></div>
+
 </div>
-
-<!--<table>-->
-    <!--<thread>-->
-        <!--<tr>-->
-            <!--<th> Nazwa </th>-->
-            <!--<th> Początek </th>-->
-            <!--<th> Koniec </th>-->
-            <!--<th> Opis </th>-->
-        <!--</tr>-->
-    <!--</thread>-->
-    <!--<tbody>-->
-    <!---->
-    <!--<tr th:each="event:${eventList}">-->
-        <!--<td><span th:text="${event.name}">Nazwa</span></td>-->
-        <!--<td><span th:text="${#temporals.format(event.startDate,'dd MM yyyy HH:mm')}"> Początek </span></td>-->
-        <!--<td><span th:text="${#temporals.format(event.stopDate, 'dd-MM-yyyy HH:mm')}"> Koniec  </span></td>-->
-        <!--<td><span th:text="${#strings.substring(event.decription, 0, 49)}"> Opis </span></td>-->
-    <!--</tr>-->
-    <!--</tbody>-->
-<!--</table>-->
-
 
 </body>
 </html>

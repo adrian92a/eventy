@@ -4,9 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import java.time.LocalDateTime;
-import java.util.List;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -23,14 +21,11 @@ public class Event {
     private String decription;
 
     @Column(nullable = false)
-    private LocalDateTime startDate;
+    private LocalDate startDate;
 
-    private LocalDateTime stopDate;
+    private LocalDate stopDate;
 
     @ManyToOne
-    @JoinColumn (name="user_id")
+    @JoinColumn(name="user_id")
     private User owner;
-
-
-
 }

@@ -59,8 +59,9 @@ public class EventController {
             return "event/newEventForm";
         }
         eventService.addNewEvent(newEventForm, authentication);
-        return "/home";
+        return "redirect:/home/";
     }
+
 
     @PostMapping("/event/{id}/comment/add")
     public String handleNewCommentForm(

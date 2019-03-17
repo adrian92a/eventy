@@ -11,6 +11,7 @@ import pl.net.rogala.eventy.repository.EventRepository;
 import pl.net.rogala.eventy.repository.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EventService {
@@ -34,6 +35,9 @@ public class EventService {
         return eventRepository.findAll(Sort.by("startDate"));
     }
 
+    public Optional<Event> getSingleEvent(Long eventId) {
+        return eventRepository.findById(eventId);
+    }
     /**
      * adding new event to database; setting logged user as owner of added event
      * @param authentication gives logged user's e-mail

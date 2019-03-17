@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Event</title>
+</head>
+<body>
+<form method="post" th:action="@{/addEvent}" th:object="${newEventForm}">
+    <br>Nazwa <input type="text" th:field="*{name}" th:errorClass="error">
+    <span class="error" th:errors="*{name}"></span>
+    <br>Opis <input type="text" th:field="*{description}" th:errorClass="error">
+    <span class="error" th:errors="*{description}"></span>
+    <br>Początek <input type="date" th:field="*{{startDate}}" th:errorClass="error">
+
+    <span class="error" th:errors="*{startDate}"></span>
+    <br>Koniec <input type="date" th:field="*{stopDate}">
+    <br><input type="submit" value="Dodaj">
+</form>
+
+</body>
+</html>

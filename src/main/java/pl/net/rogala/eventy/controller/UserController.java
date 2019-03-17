@@ -54,6 +54,7 @@ public class UserController {
      * @param authentication
      * @return "home" page template
      */
+
     @RequestMapping(value = "/home")
     public String home(Model model, Authentication authentication, Model modelForEventList) {
         model.addAttribute("loggedUser", authentication.getName());

@@ -57,4 +57,9 @@ public class EventService {
 
     return eventRepository.findAll();
     }
+
+
+    public List<Event> findEventsByDateRange(LocalDate startDate, LocalDate stopDate){
+        return eventRepository.findAllByStartDateAfterAndStopDateBefore(startDate, stopDate);
+    }
 }

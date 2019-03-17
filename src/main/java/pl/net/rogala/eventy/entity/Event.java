@@ -4,8 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.Set;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -22,17 +21,11 @@ public class Event {
     private String decription;
 
     @Column(nullable = false)
-    private LocalDateTime startDate;
+    private LocalDate startDate;
 
-    private LocalDateTime stopDate;
+    private LocalDate stopDate;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="user_id")
-    private User user;
-
-//    @ManyToMany
-//    @JoinTable(name = "assigned_to_event")
-//    private Set<User> users;
-
-
+    private User owner;
 }

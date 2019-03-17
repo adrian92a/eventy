@@ -9,6 +9,8 @@ import pl.net.rogala.eventy.form.UserRegisterForm;
 import pl.net.rogala.eventy.repository.RoleRepository;
 import pl.net.rogala.eventy.repository.UserRepository;
 
+import java.util.Set;
+
 @Service
 public class UserService {
     private UserRepository userRepository;
@@ -30,6 +32,18 @@ public class UserService {
     public void setDefaultRole(User user) {
         Role role = roleRepository.findRoleByRoleName("ROLE_USER").orElseGet(() -> roleRepository.save(new Role("ROLE_USER")));
         user.addRole(role);
+    }
+
+    /**
+     * Adding new role (organizer) to User's Set of Roles
+     *
+     * @param user
+     */
+//
+    public void addOrganizerRole(User user){
+        Role role = roleRepository.findRoleByRoleName("ROLE_ORGANIZER").get();
+        Set<Role> roles = user.getRoles();
+        roles.add(role);
     }
 
     /**

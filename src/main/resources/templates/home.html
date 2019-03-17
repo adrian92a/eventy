@@ -10,15 +10,15 @@
 <h3>Zalogowany użytkownik:  <span th:text="${loggedUser}"></span></h3>
 <h3>Lista aktualnych i nadchodzących wydarzeń:</h3>
 
-<div th:if="${events.empty}">
-    <span colspan="2">Nie ma żadnego wydarzenia</span>
-</div>
+<!--<div th:if="${events.empty}">-->
+    <!--<span colspan="2">Nie ma żadnego wydarzenia</span>-->
+<!--</div>-->
 <form th:object="${findEventDto}" th:action="@{/findEvents}" >
 
 
-    Szukaj posta: <input type="text"  th:field="*{name}" > <br/>
+    Szukaj posta: <input type="text"  name="name" th:field="*{name}" > <br/>
 
-    <select th:class="form-control" th:field="*{eventType}" >
+    <select th:class="form-control" name="eventType" th:field="*{eventType}" >
         <option th:each="eventType : ${eventTypes}"
                 th:value="${eventType}"
                 th:utext="${eventType.getLabel()}"/>

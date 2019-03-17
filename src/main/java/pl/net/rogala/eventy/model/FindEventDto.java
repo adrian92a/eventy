@@ -16,6 +16,14 @@ public class FindEventDto {
     public FindEventDto() {
     }
 
+    public void setEventType(EventType eventType) {
+        this.eventType = eventType;
+    }
+
+    public FindEventDto(EventType eventType) {
+        this.eventType = eventType;
+    }
+
     public void setName(String name) {
         this.name = name;
     }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.net.rogala.eventy.entity.Event;
 import pl.net.rogala.eventy.model.EventDto;
 import pl.net.rogala.eventy.model.EventType;
@@ -25,37 +26,16 @@ public class EventController {
 
     @GetMapping("/findEvents")
     public String showMainPage(
-//            @RequestParam("name") String name,
-//                               @RequestParam("selectValue") String option,
-//                               @ModelAttribute("selectValue") FindEventDto.SelectValue selectValue,
+            @RequestParam("name") String name,
+                               @RequestParam("eventType") EventType eventType,
             @ModelAttribute("findEventDto") FindEventDto findEventDto,
             Model model) {
         LocalDateTime localDate= LocalDateTime.now();
 
         model.addAttribute("eventTypes", EventType.values());
-
+        findEventDto.setName(name);
+        findEventDto.setEventType(eventType);
         List<EventDto> events = eventService.getEvents(findEventDto);
-//
-//        List<Event> eventList= eventService.showEventList();
-//
-//        if(findEventDto.getEventType().getLabel().equals("przyszłe")){
-//            eventList= eventRepository.findByNameIsContainingAndStartDateEqualsOrStartDateIsAfterIgnoreCase("przyszłe",localDate,localDate);
-//        }
-//        if(findEventDto.getEventType().getLabel().equals("aktualne")){
-//            eventList= eventRepository.findByNameIsContainingAndStartDateIsAfterIgnoreCase("aktualne",localDate);
-//        }
-//        if(findEventDto.getEventType().getLabel().equals("wszystkie")){
-//            eventList= eventRepository.findByNameIsContainingIgnoreCase("wszystkie");
-//        }
-//        switch (option){
-//
-//            case "przyszłe":System.out.println(localDate);
-//            eventList= eventRepository.findFutureEvents(name, localDate);
-//            break;
-//            case "trwające i przyszłe":eventList=eventRepository.findFutureAndActuallyEvents(name,localDate);
-//            break;
-//            case "wszystkie":eventList=eventRepository.findEvents(name,localDate);
-//        }
 
         model.addAttribute("events", events);
         return "home";  

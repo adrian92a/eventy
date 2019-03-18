@@ -3,6 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
+    <style>
+        a:link, a:visited {
+            background-color: cornflowerblue;
+            color: white;
+            padding: 15px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        a:hover, a:active {
+            background-color: red;
+        }
+    </style>
 </head>
 <body>
 <h1>EVENTY</h1>
@@ -10,9 +24,19 @@
 <h3>Zalogowany użytkownik:  <span th:text="${loggedUser}"></span></h3>
 <h3>Lista aktualnych i nadchodzących wydarzeń:</h3>
 
+<div th:if="${events.isEmpty()}">
+    <span colspan="2">Nie ma żadnego wydarzenia</span>
+</div>
+
+<div th:each="event:${events}">
+    <h2>
+        <a th:text="${event.name}" th:href="@{/event/{eventId}(eventId=${event.id})}">Nazwa</a>
+    </h2>
+    <div th:text="${#temporals.format(event.startDate,'dd-MM-yyyy HH:mm')}">Start</div>
 <!--<div th:if="${events.empty}">-->
     <!--<span colspan="2">Nie ma żadnego wydarzenia</span>-->
 <!--</div>-->
+</div>
 <form th:object="${findEventDto}" th:action="@{/findEvents}" >
 
 
@@ -39,6 +63,10 @@
     <!--<div th:text="${event.getOwner().nick}"></div>-->
 
 </div>
+
+
+<a href= "/logout">Logout</a>
+
 
 <table>
     <thread>

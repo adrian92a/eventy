@@ -28,14 +28,14 @@ public class UserController {
     }
 
     @GetMapping("/register")
-    public String showUserRegisterForm(Model model){
+    public String showUserRegisterForm(Model model) {
         model.addAttribute("userRegisterForm", new UserRegisterForm());
         return "user/registerUser";
     }
 
     @PostMapping("/register")
-    public String handleUserRegisterForm(@ModelAttribute @Valid UserRegisterForm userRegisterForm, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
+    public String handleUserRegisterForm(@ModelAttribute @Valid UserRegisterForm userRegisterForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             return "user/registerUser";
         }
         userService.registerUser(userRegisterForm);
@@ -43,24 +43,24 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String showLoginForm(){
-        return"user/loginUser";
+    public String showLoginForm() {
+        return "user/loginUser";
     }
 
     /**
      * Shows logged user email (login) on "home" website
+     *
      * @param model
      * @param authentication
      * @return "home" page template
      */
     @RequestMapping(value = "/home")
-    public String home(Model model, Authentication authentication, Model modelForEventList){
+    public String home(Model model, Authentication authentication, Model modelForEventList) {
         model.addAttribute("loggedUser", authentication.getName());
         modelForEventList.addAttribute("events",eventService.showEventList());
-       model.addAttribute("findEventDto",new FindEventDto());
+        model.addAttribute("findEventDto",new FindEventDto());
         model.addAttribute("eventTypes", EventType.values());
+        modelForEventList.addAttribute("eventList", eventService.showEventList());
         return "home";
     }
-
-
 }

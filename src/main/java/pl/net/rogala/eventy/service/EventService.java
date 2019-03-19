@@ -17,18 +17,14 @@ import java.util.List;
 public class EventService {
 
     private EventRepository eventRepository;
-    private UserRepository userRepository;
-
-    private UserService userService;
-
-    private NewEventForm eventForm;
 
     @Autowired
-    public EventService(EventRepository eventRepository, UserRepository userRepository, UserService userService, NewEventForm eventForm) {
+    private UserService userService;
+
+
+    @Autowired
+    public EventService(EventRepository eventRepository) {
         this.eventRepository = eventRepository;
-        this.userRepository = userRepository;
-        this.userService = userService;
-        this.eventForm = eventForm;
     }
 
     public List<Event> showEventList(){
@@ -46,20 +42,13 @@ public class EventService {
         event.setDecription(eventForm.getDescription());
         event.setStartDate(eventForm.getStartDate());
         event.setStopDate(eventForm.getStopDate());
-        User owner = userRepository.findByEmail(authentication.getName()).get();
+        User owner = userService.getUserByEmail(authentication.getName()).get();
         event.setOwner(owner);
         userService.addOrganizerRole(owner);
         eventRepository.save(event);
     }
 
-    public List<Event> getListOfFutureEvents(){
-//        return eventRepository.findFutureEvents(LocalDate.now());
-
-    return eventRepository.findAll();
-    }
-
-
-    public List<Event> findEventsByDateRange(LocalDate startDate, LocalDate stopDate){
+     public List<Event> findEventsByDateRange(LocalDate startDate, LocalDate stopDate){
         return eventRepository.findAllByStartDateAfterAndStopDateBefore(startDate, stopDate);
     }
 }

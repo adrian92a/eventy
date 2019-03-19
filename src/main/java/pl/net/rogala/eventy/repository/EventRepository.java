@@ -15,10 +15,6 @@ import java.util.Set;
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long> {
 
-//    @Modifying
-//    @Query("select e from event e where start_date >= :date")
-//    List<Event> findFutureEvents(@Param("date") LocalDate localDate);
-
     public List<Event> findAllByStartDateAfterAndStopDateBefore(LocalDate startDate, LocalDate stopDate);
 
 

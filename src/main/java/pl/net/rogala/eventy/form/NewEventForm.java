@@ -20,7 +20,7 @@ public class NewEventForm {
     @NotBlank(message = "Nazwa wydarzenia jest obowiązkowa!")
     private String name;
 
-    @Size(min=20, message = "Opis wydarzenia jest obowiązkowy!")
+    @Size(min=20, message = "Opis wydarzenia jest obowiązkowy, minimum 20 znaków!")
     private String description;
 
     @NotNull(message = "Wydarzenie musi mieć poczatkowy termin!")

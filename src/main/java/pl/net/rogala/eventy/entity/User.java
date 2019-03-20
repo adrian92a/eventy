@@ -30,7 +30,6 @@ public class User {
     @JoinTable(name = "user_role")
     private Set<Role> roles;
 
-
     /**
      * Adding role for user
      *

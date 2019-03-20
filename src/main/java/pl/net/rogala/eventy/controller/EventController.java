@@ -43,7 +43,7 @@ public class EventController {
         model.addAttribute("showCommentForm", showCommentForm);
         model.addAttribute("event", eventOptional.get());
         model.addAttribute("comments", eventService.getAllCommentsToEvent(Long.parseLong(eventId)));
-
+        
 
         return "event/showSingleEvent";
     }

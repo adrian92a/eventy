@@ -78,7 +78,7 @@ public class EventController {
         List<EventDto> events = eventService.getEvents(findEventDto);
 
         model.addAttribute(     "events", events);
-        return "home";
+        return "event/findEventsResults";
     }
 
     @PostMapping("/event/{id}/comment/add")

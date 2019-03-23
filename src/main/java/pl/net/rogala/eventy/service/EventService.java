@@ -54,7 +54,7 @@ public class EventService {
         System.out.println("Name: " + findEventDto.getName() + "     Event Type:" + findEventDto.getEventType());
         BooleanExpression booleanExpression = Expressions.asBoolean(true).isTrue();
         if (findEventDto.getName() != null) {
-            booleanExpression = booleanExpression.and(event.name.contains(findEventDto.getName()));
+            booleanExpression = booleanExpression.and(event.name.containsIgnoreCase(findEventDto.getName()));
         }
         if (findEventDto.getEventType() != null) {
             if (findEventDto.getEventType().equals(EventType.CURRENT)) {

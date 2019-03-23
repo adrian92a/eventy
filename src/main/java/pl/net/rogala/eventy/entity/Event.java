@@ -25,7 +25,7 @@ public class Event {
 
     private LocalDate stopDate;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="user_id")
     private User owner;
 }

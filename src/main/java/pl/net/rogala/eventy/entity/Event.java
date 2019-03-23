@@ -5,6 +5,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -17,7 +20,7 @@ public class Event {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable=false, length = 1000)
+    @Column(nullable = false, length = 1000)
     private String decription;
 
     @Column(nullable = false)
@@ -26,6 +29,8 @@ public class Event {
     private LocalDate stopDate;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name = "user_id")
     private User owner;
+
+
 }

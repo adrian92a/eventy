@@ -1,15 +1,27 @@
 <!DOCTYPE html>
-<html lang="en"xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <style>
+        .box {
+            border: 2px solid red;
+            border-radius: 8px;
+            background-color: lightsteelblue;
+            margin: 25px 350px 50px 350px;
+            padding: 8%;
+        }
+    </style>
 </head>
 <body>
-<form method="post" th:action="@{/login-post}">
-    <br>E-mail: <input type="text" name="username">
-    <br>Hasło: <input type="password" name="password">
-    <br><input type="submit" value="Zaloguj">
-
-</form>
+<div class="box" align="center">
+    <form method="post" th:action="@{/login-post}">
+        <h1>Logowanie użytkowników</h1>
+        <br>Login: <input type="text" name="username" placeholder="wpisz adres email">
+        <br>Hasło: <input type="password" name="password" placeholder="wpisz hasło">
+        <br>
+        <br><input type="submit" value="Zaloguj">
+    </form>
+</div>
 </body>
 </html>

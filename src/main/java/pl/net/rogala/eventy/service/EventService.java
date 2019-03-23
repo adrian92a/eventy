@@ -3,10 +3,11 @@ package pl.net.rogala.eventy.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import pl.net.rogala.eventy.entity.AssignedToEvent;
 import pl.net.rogala.eventy.entity.Comment;
 import pl.net.rogala.eventy.entity.Event;
+import pl.net.rogala.eventy.repository.AssignedToEventRepository;
 import pl.net.rogala.eventy.repository.CommentRepository;
 import pl.net.rogala.eventy.entity.User;
 import pl.net.rogala.eventy.form.NewEventForm;
@@ -23,6 +24,7 @@ public class EventService {
 
     private EventRepository eventRepository;
     private UserRepository userRepository;
+    private AssignedToEventRepository assignedToEventRepository;
 
     private UserService userService;
 
@@ -30,16 +32,17 @@ public class EventService {
     private CommentRepository commentRepository;
 
     @Autowired
-    public EventService(EventRepository eventRepository, UserRepository userRepository, UserService userService, NewEventForm eventForm, CommentRepository commentRepository) {
+    public EventService(EventRepository eventRepository, UserRepository userRepository, AssignedToEventRepository assignedToEventRepository, UserService userService, NewEventForm eventForm, CommentRepository commentRepository) {
         this.eventRepository = eventRepository;
         this.userRepository = userRepository;
+        this.assignedToEventRepository = assignedToEventRepository;
         this.userService = userService;
         this.eventForm = eventForm;
         this.commentRepository = commentRepository;
 
     }
 
-    public List<Event> showEventList(){
+    public List<Event> showEventList() {
         return eventRepository.findAll(Sort.by("startDate"));
     }
 
@@ -59,8 +62,12 @@ public class EventService {
     }
 
 
-    public List<Comment> getAllCommentsToEvent(Long eventId)
-    {return  commentRepository.findAllByEvent_Id(eventId);
+    public List<Comment> getAllCommentsToEvent(Long eventId) {
+        return commentRepository.findAllByEvent_Id(eventId);
+    }
+
+    public List<User> showAllUsersAssignedToEvent(Long eventId) {
+        return assignedToEventRepository.findAllUsesAssignedToEventById(eventId);
     }
 
     public void addNewComment(Long eventId, String userEmail, String body) {
@@ -73,12 +80,30 @@ public class EventService {
 
     }
 
+    public void assignedUseToEvent(Long eventId, String userName) {
+        AssignedToEvent assignedToEvent = new AssignedToEvent();
+        assignedToEvent.setEvent(eventRepository.findById(eventId).get());
+        assignedToEvent.setAddedDate(LocalDateTime.now());
+        assignedToEvent.setUser(userRepository.findByEmail(userName).get());
+        assignedToEventRepository.save(assignedToEvent);
+    }
+
+    public void removeUseFromEvent(Long eventId, String userEmail) {
+        AssignedToEvent assignedToEvent = new AssignedToEvent();
+        assignedToEvent.setEvent(eventRepository.findById(eventId).get());
+        assignedToEvent.setAddedDate(LocalDateTime.now());
+        assignedToEvent.setUser(userRepository.findByEmail(userEmail).get());
+        showAllUsersAssignedToEvent(eventId).remove(userEmail);
+        assignedToEventRepository.save(assignedToEvent);
+    }
+
     /**
      * adding new event to database; setting logged user as owner of added event
+     *
      * @param authentication gives logged user's e-mail
-     * @param eventForm form to adding new event
+     * @param eventForm      form to adding new event
      */
-    public void addNewEvent(NewEventForm eventForm, Authentication authentication){
+    public void addNewEvent(NewEventForm eventForm, Authentication authentication) {
         Event event = new Event();
         event.setName(eventForm.getName());
         event.setDecription(eventForm.getDescription());
@@ -90,4 +115,6 @@ public class EventService {
         userService.addOrganizerRole(owner);
         eventRepository.save(event);
     }
+
+
 }

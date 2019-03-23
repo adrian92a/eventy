@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.net.rogala.eventy.entity.Event;
 import pl.net.rogala.eventy.form.EventEditForm;
 import pl.net.rogala.eventy.service.EventService;
-
 import javax.validation.Valid;
 import java.util.Optional;
 import pl.net.rogala.eventy.form.NewEventForm;
@@ -43,11 +42,17 @@ public class EventController {
         model.addAttribute("event", eventOptional.get());
         model.addAttribute("comments", eventService.getAllCommentsToEvent(Long.parseLong(eventId)));
 
-
         return "event/showSingleEvent";
     }
+
+    @PostMapping("/event/{id}/addUserToEvent")
+    public String handleNewUserAssignedToEvent(@PathVariable String id, Authentication authentication) {
+        eventService.assignedUseToEvent(Long.parseLong(id), authentication.getName());
+        return "redirect:/event/" + id;
+    }
+
     @GetMapping("/addEvent")
-    public String addNewEvent(Model model){
+    public String addNewEvent(Model model) {
         model.addAttribute("newEventForm", new NewEventForm());
         return "event/newEventForm";
     }
@@ -84,8 +89,8 @@ public class EventController {
     }
 
     @PostMapping("/addEvent")
-    public String handleNewEventForm(@ModelAttribute @Valid NewEventForm newEventForm, BindingResult bindingResult, Authentication authentication){
-        if(bindingResult.hasErrors()){
+    public String handleNewEventForm(@ModelAttribute @Valid NewEventForm newEventForm, BindingResult bindingResult, Authentication authentication) {
+        if (bindingResult.hasErrors()) {
             return "event/newEventForm";
         }
         eventService.addNewEvent(newEventForm, authentication);
@@ -93,11 +98,10 @@ public class EventController {
     }
 
     @PostMapping("/event/{id}/comment/add")
-    public String handleNewCommentForm(
-            @PathVariable String id,
-            @RequestParam String commentBody,
-            @RequestParam String eventId,
-            Authentication authentication
+    public String handleNewCommentForm(@PathVariable String id,
+                                       @RequestParam String commentBody,
+                                       @RequestParam String eventId,
+                                       Authentication authentication
     ) {
         eventService.addNewComment(Long.parseLong(id), authentication.getName(), commentBody);
         return "redirect:/event/" + eventId;

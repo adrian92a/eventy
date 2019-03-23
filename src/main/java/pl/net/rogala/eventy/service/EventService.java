@@ -4,17 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-import pl.net.rogala.eventy.entity.AssignedToEvent;
 import pl.net.rogala.eventy.api.EventSummary;
 import pl.net.rogala.eventy.converter.EventConverter;
+import pl.net.rogala.eventy.entity.AssignedToEvent;
 import pl.net.rogala.eventy.entity.Comment;
 import pl.net.rogala.eventy.entity.Event;
+import pl.net.rogala.eventy.entity.User;
+import pl.net.rogala.eventy.form.EventEditForm;
 import pl.net.rogala.eventy.repository.AssignedToEventRepository;
 import pl.net.rogala.eventy.repository.CommentRepository;
-import pl.net.rogala.eventy.entity.User;
-import pl.net.rogala.eventy.form.NewEventForm;
-import pl.net.rogala.eventy.form.EventEditForm;
 import pl.net.rogala.eventy.repository.EventRepository;
+import pl.net.rogala.eventy.repository.UserRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -36,9 +36,11 @@ public class EventService {
     private CommentRepository commentRepository;
 
     @Autowired
-    public EventService(EventRepository eventRepository, EventConverter eventConverter, UserService userService, CommentRepository commentRepository) {
+    public EventService(EventRepository eventRepository, EventConverter eventConverter, UserRepository userRepository, AssignedToEventRepository assignedToEventRepository, UserService userService, CommentRepository commentRepository) {
         this.eventRepository = eventRepository;
         this.eventConverter = eventConverter;
+        this.userRepository = userRepository;
+        this.assignedToEventRepository = assignedToEventRepository;
         this.userService = userService;
         this.commentRepository = commentRepository;
     }
@@ -65,12 +67,10 @@ public class EventService {
 
     public List<Comment> getAllCommentsToEvent(Long eventId) {
         return commentRepository.findAllByEvent_Id(eventId);
-    public List<Comment> getAllCommentsToEvent(Long eventId) {
-        return commentRepository.findAllByEvent_Id(eventId);
     }
 
     public List<User> showAllUsersAssignedToEvent(Long eventId) {
-        return assignedToEventRepository.findAllUsesAssignedToEventById(eventId);
+        return assignedToEventRepository.findAllUsersAssignedToEventById(eventId);
     }
 
     public void addNewComment(Long eventId, String userEmail, String body) {

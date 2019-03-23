@@ -17,7 +17,7 @@ import pl.net.rogala.eventy.form.EventEditForm;
 import pl.net.rogala.eventy.service.EventService;
 
 import javax.validation.Valid;
-import java.util.Optional;;
+import java.util.Optional;
 import pl.net.rogala.eventy.form.NewEventForm;
 
 

@@ -19,4 +19,6 @@ public interface AssignedToEventRepository extends JpaRepository<AssignedToEvent
     @Transactional
     @Query(nativeQuery = true, value = "delete from assigned_to_event a where a.user_id = :userId and a.event_id=:eventId")
     void removeRecord(@Param("userId") Long userId, @Param("eventId") Long eventId);
+
+    List<AssignedToEvent> findAllByUserId(Long userId);
 }

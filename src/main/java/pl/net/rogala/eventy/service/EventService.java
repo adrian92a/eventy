@@ -91,7 +91,7 @@ public class EventService {
 
     public void removeUserFromEvent(Long eventId, String userEmail) {
 
-        Long userId=userRepository.findByEmail(userEmail).get().getId();
+        Long userId = userRepository.findByEmail(userEmail).get().getId();
         assignedToEventRepository.removeRecord(userId, eventId);
     }
 
@@ -103,6 +103,16 @@ public class EventService {
     public void addNewEvent(Authentication authentication) {
         eventRepository.save(eventConverter.prepareNewEvent(authentication));
     }
+
+    public List<Event> showAllEventsOrganizedByUser(Authentication authentication) {
+        return eventRepository.findEventsByOwner(userService.getUserByEmail(authentication.getName()).get());
+    }
+
+    public List<Event> showAllEventsWhereUserContribute(Authentication authentication) {
+        List<AssignedToEvent> preparedList = assignedToEventRepository.findAllByUserId(userService.getUserByEmail(authentication.getName()).get().getId());
+        return preparedList.stream().map(ae -> ae.getEvent()).collect(Collectors.toList());
+    }
+
 
     public List<Event> findEventsByDateRange(LocalDate startDate, LocalDate stopDate) {
         return eventRepository.findAllByStartDateAfterAndStopDateBefore(startDate, stopDate);

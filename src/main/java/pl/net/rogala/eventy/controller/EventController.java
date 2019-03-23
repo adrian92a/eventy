@@ -52,9 +52,9 @@ public class EventController {
     }
 
     @PostMapping("/event/{id}/addUserToEvent")
-    public String handleNewUserAssignedToEvent(@PathVariable String id,@RequestParam String eventId, Authentication authentication) {
+    public String handleNewUserAssignedToEvent(@PathVariable String id, Authentication authentication) {
         eventService.assignedUseToEvent(Long.parseLong(id), authentication.getName());
-        return "redirect:/event/" + eventId;
+        return "redirect:/event/" + id;
     }
 
     @GetMapping("/addEvent")

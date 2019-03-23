@@ -31,9 +31,10 @@ public class EventService {
     private CommentRepository commentRepository;
 
     @Autowired
-    public EventService(EventRepository eventRepository, UserRepository userRepository, UserService userService, NewEventForm eventForm, CommentRepository commentRepository) {
+    public EventService(EventRepository eventRepository, UserRepository userRepository, AssignedToEventRepository assignedToEventRepository, UserService userService, NewEventForm eventForm, CommentRepository commentRepository) {
         this.eventRepository = eventRepository;
         this.userRepository = userRepository;
+        this.assignedToEventRepository = assignedToEventRepository;
         this.userService = userService;
         this.eventForm = eventForm;
         this.commentRepository = commentRepository;

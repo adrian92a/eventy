@@ -58,7 +58,7 @@ public class EventController {
         if(bindingResult.hasErrors()){
             return "event/newEventForm";
         }
-        eventService.addNewEvent(newEventForm, authentication);
+        eventService.addNewEvent(authentication);
         return "/home";
     }
 

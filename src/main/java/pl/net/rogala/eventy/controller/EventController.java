@@ -77,7 +77,7 @@ public class EventController {
         findEventDto.setEventType(eventType);
         List<EventDto> events = eventService.getEvents(findEventDto);
 
-        model.addAttribute("events", events);
+        model.addAttribute(     "events", events);
         return "home";
     }
 

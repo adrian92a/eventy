@@ -59,10 +59,10 @@ public class EventService {
         if (findEventDto.getEventType() != null) {
             if (findEventDto.getEventType().equals(EventType.CURRENT)) {
 
-                booleanExpression = booleanExpression.and(event.startDate.after(LocalDate.now()).or(event.startDate.eq(LocalDate.now())));
+                booleanExpression = booleanExpression.and(event.startDate.after(LocalDate.now()).and(event.startDate.before(LocalDate.now())));
             }
             if (findEventDto.getEventType().equals(EventType.FUTURE)) {
-                booleanExpression = booleanExpression.and(event.startDate.eq(LocalDate.now()));
+                booleanExpression = booleanExpression.and(event.startDate.after(LocalDate.now()));
             }
         }
 

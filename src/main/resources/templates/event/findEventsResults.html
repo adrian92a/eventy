@@ -1,20 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-    <style>
-        a:link, a:visited {
-            background-color: cornflowerblue;
-            color: white;
-            padding: 15px 25px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-        }
 
-        a:hover, a:active {
-            background-color: red;
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .others {
+            color: #0aff13
         }
     </style>
 </head>
@@ -28,10 +19,10 @@
 <form th:object="${findEventDto}" th:action="@{/findEvents}" >
 
 
-    Szukaj posta: <input type="text"  name="name" th:field="*{name}" > <br/>
+    <h3 style="color: #0aff13">Szukaj posta:</h3> <input type="text"  name="name" th:field="*{name}" > <br/>
 
-    <select th:class="form-control" name="eventType" th:field="*{eventType}" >
-        <option th:each="eventType : ${eventTypes}"
+    <select  th:class="form-control" name="eventType" th:field="*{eventType}" >
+        <option style="color:#201a80" th:each="eventType : ${eventTypes}"
                 th:value="${eventType}"
                 th:utext="${eventType.getLabel()}"/>
     </select>
@@ -41,6 +32,7 @@
     <br>
     <input type="submit" value="Submit">
 </form>
+
 <div th:if="${events.isEmpty()}">
     <span colspan="2">Nie ma żadnego wydarzenia</span>
 </div>

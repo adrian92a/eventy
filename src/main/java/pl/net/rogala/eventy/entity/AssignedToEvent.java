@@ -20,8 +20,6 @@ public class AssignedToEvent {
 
     private LocalDateTime addedDate;
 
-    private boolean orAssigned;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "event_id")
     private Event event;

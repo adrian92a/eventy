@@ -3,7 +3,6 @@ package pl.net.rogala.eventy.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import pl.net.rogala.eventy.entity.AssignedToEvent;
 import pl.net.rogala.eventy.entity.Comment;
@@ -54,6 +53,10 @@ public class EventService {
         return commentRepository.findAllByEvent_Id(eventId);
     }
 
+    public List<User> showAllUsersAssignedToEvent(Long eventId) {
+        return assignedToEventRepository.findAllUsesAssignedToEventById(eventId);
+    }
+
     public void addNewComment(Long eventId, String userEmail, String body) {
         Comment comment = new Comment();
         comment.setEvent(eventRepository.findById(eventId).get());
@@ -64,14 +67,21 @@ public class EventService {
 
     }
 
-    public void assignedUseToEvent(Long eventId, String userEmail, Boolean orAssigned) {
+    public void assignedUseToEvent(Long eventId, String userName) {
         AssignedToEvent assignedToEvent = new AssignedToEvent();
         assignedToEvent.setEvent(eventRepository.findById(eventId).get());
         assignedToEvent.setAddedDate(LocalDateTime.now());
-        assignedToEvent.setOrAssigned(orAssigned);
-        assignedToEvent.setUser(userRepository.findByEmail(userEmail).get());
+        assignedToEvent.setUser(userRepository.findByEmail(userName).get());
         assignedToEventRepository.save(assignedToEvent);
+    }
 
+    public void removeUseFromEvent(Long eventId, String userEmail) {
+        AssignedToEvent assignedToEvent = new AssignedToEvent();
+        assignedToEvent.setEvent(eventRepository.findById(eventId).get());
+        assignedToEvent.setAddedDate(LocalDateTime.now());
+        assignedToEvent.setUser(userRepository.findByEmail(userEmail).get());
+        showAllUsersAssignedToEvent(eventId).remove(userEmail);
+        assignedToEventRepository.save(assignedToEvent);
     }
 
     /**
@@ -92,4 +102,6 @@ public class EventService {
         userService.addOrganizerRole(owner);
         eventRepository.save(event);
     }
+
+
 }

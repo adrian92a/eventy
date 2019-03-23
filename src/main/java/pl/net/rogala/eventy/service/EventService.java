@@ -27,7 +27,6 @@ public class EventService {
 
     @Autowired
     private UserService userService;
-
     private CommentRepository commentRepository;
 
     @Autowired

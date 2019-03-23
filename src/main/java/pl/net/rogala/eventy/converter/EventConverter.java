@@ -6,6 +6,7 @@ import pl.net.rogala.eventy.entity.Event;
 import pl.net.rogala.eventy.entity.User;
 import pl.net.rogala.eventy.form.NewEventForm;
 import pl.net.rogala.eventy.service.UserService;
+
 @Component
 public class EventConverter {
     private NewEventForm eventForm;

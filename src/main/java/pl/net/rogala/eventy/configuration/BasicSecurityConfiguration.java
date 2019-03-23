@@ -49,7 +49,6 @@ public class BasicSecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "JOIN user_role ur ON u.id = ur.user_id " +
                         "JOIN role r ON ur.roles_id = r.id " +
                         "WHERE u.email = ?")
-                .passwordEncoder(passwordEncoder)
-        ;
+                .passwordEncoder(passwordEncoder);
     }
 }

@@ -11,6 +11,7 @@ import pl.net.rogala.eventy.repository.AssignedToEventRepository;
 import pl.net.rogala.eventy.repository.CommentRepository;
 import pl.net.rogala.eventy.entity.User;
 import pl.net.rogala.eventy.form.NewEventForm;
+import pl.net.rogala.eventy.form.EventEditForm;
 import pl.net.rogala.eventy.repository.EventRepository;
 import pl.net.rogala.eventy.repository.UserRepository;
 
@@ -47,6 +48,17 @@ public class EventService {
 
     public Optional<Event> getSingleEvent(Long eventId) {
         return eventRepository.findById(eventId);
+    }
+
+    public void editEvent(Long eventId, EventEditForm eventEditForm) {
+        Event event = eventRepository.findById(eventId).orElseThrow(() -> new RuntimeException("event not found"));
+
+        event.setName(eventEditForm.getName());
+        event.setDecription(eventEditForm.getDescription());
+        event.setStartDate(eventEditForm.getStartDate());
+        event.setStopDate(eventEditForm.getStopDate());
+
+        eventRepository.save(event);
     }
 
 

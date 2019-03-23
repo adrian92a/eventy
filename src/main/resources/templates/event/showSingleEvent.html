@@ -13,7 +13,7 @@
         th:text="${#temporals.format(event.stopDate, 'dd-MM-yyyy HH:mm')}">2019-03-02 11:07:10</span>
     <p>Opis wydarzenia:<br>
         <span th:text="${event.decription}"></span></p>
-    <p>Właściciel wydarzenia: <span th:text="${event.getOwner().getEmail()}"></span></p>
+    <p>Właściciel wydarzenia: <span th:text="${event.getOwner().getNick()}"></span></p>
     <br>
     <form method="get" th:action="@{/event/editEvent/{eventId} (eventId=${event.id})}">
         <input type="submit" value="Edytuj">
@@ -34,11 +34,18 @@
             <input type="submit" value="Zapisz na wydarzenie">
         </form>
     </div>
+    <div>
+        <form method="post" th:action="@{/event/{id}/removeUserFromEvent(id=${event.id})}">
+            <br>
+            <input type="submit" value="Wypisz z wydarzenia">
+        </form>
+    </div>
+
     <br>
-    <div style="border: solid green 3px" th:each="comment:${comments}">
+    <div style="border: solid green 2px" th:each="comment:${comments}">
         <p th:text="${comment.body}"></p>
         <p th:text="${comment.added}"></p>
-        <p th:text="${comment.getCommentator().email}"></p>
+        <p th:text="${comment.getCommentator().nick}"></p>
         <br>
     </div>
 </div>

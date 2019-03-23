@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>SingleEvent</title>
+    <title th:text="${event.name}">SingleEvent</title>
 </head>
 <body>
 <div align="center">
@@ -15,6 +15,9 @@
         <span th:text="${event.decription}"></span></p>
     <p>Właściciel wydarzenia: <span th:text="${event.getOwner().getEmail()}"></span></p>
     <br>
+    <form method="get" th:action="@{/event/editEvent/{eventId} (eventId=${event.id})}">
+        <input type="submit" value="Edytuj">
+    </form>
     <br>
     <div th:if="${showCommentForm}">
         <form method="post" th:action="@{/event/{id}/comment/add(id=${event.id})}">
@@ -39,5 +42,6 @@
         <br>
     </div>
 </div>
+
 </body>
 </html>

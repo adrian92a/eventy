@@ -43,7 +43,6 @@ public class UserService {
      *
      * @param user owner of added event
      */
-//
     public void addOrganizerRole(User user){
         Role role = roleRepository.findRoleByRoleName("ROLE_ORGANIZER").get();
         Set<Role> roles = user.getRoles();

@@ -4,6 +4,7 @@ import pl.net.rogala.eventy.entity.User;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class EventDto {
     private Long id;
@@ -21,13 +22,15 @@ public class EventDto {
         this.stopDate = stopDate;
         this.owner = owner;
     }
+    private List<CommentDto> comments;
 
-    public EventDto(Long id, String name, String decription, LocalDate startDate, LocalDate stopDate) {
+    public EventDto(Long id, String name, String decription, LocalDate startDate, LocalDate stopDate, List<CommentDto> comments) {
         this.id = id;
         this.name = name;
         this.decription = decription;
         this.startDate = startDate;
         this.stopDate = stopDate;
+        this.comments = comments;
     }
 
     public User getOwner() {

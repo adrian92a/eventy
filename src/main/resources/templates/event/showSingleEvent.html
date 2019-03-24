@@ -15,6 +15,7 @@
         <span th:text="${event.decription}"></span></p>
     <p>Właściciel wydarzenia: <span th:text="${event.getOwner().getNick()}"></span></p>
     <br>
+    <div th:if="${showEditForm}">
     <form method="get" th:action="@{/event/editEvent/{eventId} (eventId=${event.id})}">
         <input type="submit" value="Edytuj">
     </form>

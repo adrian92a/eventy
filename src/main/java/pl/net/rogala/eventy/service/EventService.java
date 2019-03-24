@@ -67,7 +67,7 @@ public class EventService {
     }
 
     public List<User> showAllUsersAssignedToEvent(Long eventId) {
-        return assignedToEventRepository.findAllUsesAssignedToEventById(eventId);
+        return assignedToEventRepository.findAllUsersAssignedToEventById(eventId);
     }
 
     public void addNewComment(Long eventId, String userEmail, String body) {
@@ -80,7 +80,7 @@ public class EventService {
 
     }
 
-    public void assignedUseToEvent(Long eventId, String userName) {
+    public void assignedUserToEvent(Long eventId, String userName) {
         AssignedToEvent assignedToEvent = new AssignedToEvent();
         assignedToEvent.setEvent(eventRepository.findById(eventId).get());
         assignedToEvent.setAddedDate(LocalDateTime.now());
@@ -88,13 +88,9 @@ public class EventService {
         assignedToEventRepository.save(assignedToEvent);
     }
 
-    public void removeUseFromEvent(Long eventId, String userEmail) {
-        AssignedToEvent assignedToEvent = new AssignedToEvent();
-        assignedToEvent.setEvent(eventRepository.findById(eventId).get());
-        assignedToEvent.setAddedDate(LocalDateTime.now());
-        assignedToEvent.setUser(userRepository.findByEmail(userEmail).get());
-        showAllUsersAssignedToEvent(eventId).remove(userEmail);
-        assignedToEventRepository.save(assignedToEvent);
+    public void removeUserFromEvent(Long eventId, String userEmail) {
+        Long userId = userRepository.findByEmail(userEmail).get().getId();
+        assignedToEventRepository.removeRecord(userId, eventId);
     }
 
     /**

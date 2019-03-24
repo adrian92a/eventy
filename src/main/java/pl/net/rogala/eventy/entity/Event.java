@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -33,7 +34,20 @@ public class Event {
     @JoinColumn(name="user_id")
     private User owner;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "event_id")
+    List<Comment> comments;
+
     public EventDto toEventDto() {
-        return new EventDto(this.id, this.name, this.decription, this.startDate, this.stopDate);
+        return new EventDto(
+                this.id,
+                this.name,
+                this.decription,
+                this.startDate,
+                this.stopDate,
+                this.comments.stream()
+                        .map(Comment::toDto)
+                        .collect(Collectors.toList())
+        );
     }
 }

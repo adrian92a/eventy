@@ -55,7 +55,7 @@ public class EventController {
         boolean showCommentForm = authentication != null;
         model.addAttribute("showCommentForm", showCommentForm);
         model.addAttribute("event", eventOptional.get());
-        model.addAttribute("comments", eventService.getAllCommentsToEvent(Long.parseLong(eventId)));
+        model.addAttribute("comments", eventOptional.get().getComments());
 //        model.addAttribute("users", eventService.showAllUsersAssignedToEvent(Long.parseLong(eventId)));
 
 
@@ -117,7 +117,7 @@ public class EventController {
             return "event/newEventForm";
         }
         eventService.addNewEvent(newEventForm, authentication);
-        return "/home";
+        return "redirect:/home";
     }
 
     @GetMapping("/findEvents")
@@ -134,15 +134,5 @@ public class EventController {
         model.addAttribute(     "events", events);
         model.addAttribute("loggedUser", authentication.getName());
         return "event/findEventsResults";
-    }
-
-    @PostMapping("/event/{id}/comment/add")
-    public String handleNewCommentForm(@PathVariable String id,
-                                       @RequestParam String commentBody,
-                                       @RequestParam String eventId,
-                                       Authentication authentication
-    ) {
-        eventService.addNewComment(Long.parseLong(id), authentication.getName(), commentBody);
-        return "redirect:/event/" + eventId;
     }
 }

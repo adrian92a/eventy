@@ -16,9 +16,9 @@
     <p>Właściciel wydarzenia: <span th:text="${event.getOwner().getNick()}"></span></p>
     <br>
     <div th:if="${showEditForm}">
-    <form method="get" th:action="@{/event/editEvent/{eventId} (eventId=${event.id})}">
-        <input type="submit" value="Edytuj">
-    </form>
+        <form method="get" th:action="@{/event/editEvent/{eventId} (eventId=${event.id})}">
+            <input type="submit" value="Edytuj">
+        </form>
     </div>
     <br>
     <div th:if="${showCommentForm}">
@@ -36,12 +36,23 @@
             <input type="submit" value="Zapisz na wydarzenie">
         </form>
     </div>
-    </div>
     <div>
         <form method="post" th:action="@{/event/{id}/removeUserFromEvent(id=${event.id})}">
             <br>
             <input type="submit" value="Wypisz z wydarzenia">
         </form>
+        <div>
+            <form method="post" th:action="@{/event/{id}/addUserToEvent(id=${event.id})}">
+                <br>
+                <input type="submit" value="Zapisz na wydarzenie">
+            </form>
+        </div>
+        <div>
+            <form method="post" th:action="@{/event/{id}/removeUserFromEvent(id=${event.id})}">
+                <br>
+                <input type="submit" value="Wypisz z wydarzenia">
+            </form>
+        </div>
     </div>
 
     <br>

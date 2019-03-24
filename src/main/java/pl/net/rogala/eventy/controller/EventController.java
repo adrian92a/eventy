@@ -2,12 +2,8 @@ package pl.net.rogala.eventy.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
-
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,20 +17,11 @@ import pl.net.rogala.eventy.model.EventType;
 import pl.net.rogala.eventy.model.FindEventDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
-
 import pl.net.rogala.eventy.service.EventService;
-
 import javax.validation.Valid;
-import java.util.Optional;
-
-import pl.net.rogala.eventy.form.NewEventForm;
 import pl.net.rogala.eventy.service.UserContextService;
-
-
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
+
 
 @Controller
 public class EventController {

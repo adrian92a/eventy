@@ -28,8 +28,6 @@
             <br>
             <input type="submit" value="Dodaj komentarz">
         </form>
-
-
     <div>
         <form method="post" th:action="@{/event/{id}/addUserToEvent(id=${event.id})}">
             <br>
@@ -41,18 +39,6 @@
             <br>
             <input type="submit" value="Wypisz z wydarzenia">
         </form>
-        <div>
-            <form method="post" th:action="@{/event/{id}/addUserToEvent(id=${event.id})}">
-                <br>
-                <input type="submit" value="Zapisz na wydarzenie">
-            </form>
-        </div>
-        <div>
-            <form method="post" th:action="@{/event/{id}/removeUserFromEvent(id=${event.id})}">
-                <br>
-                <input type="submit" value="Wypisz z wydarzenia">
-            </form>
-        </div>
     </div>
 
     <br>
@@ -63,6 +49,6 @@
         <br>
     </div>
 </div>
-
+</div>
 </body>
 </html>

@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.net.rogala.eventy.entity.Event;
 import pl.net.rogala.eventy.form.EventEditForm;
 import pl.net.rogala.eventy.service.EventService;
+
 import javax.validation.Valid;
 import java.util.Optional;
+
 import pl.net.rogala.eventy.form.NewEventForm;
 import pl.net.rogala.eventy.service.UserContextService;
 
@@ -47,13 +49,20 @@ public class EventController {
         model.addAttribute("showCommentForm", showCommentForm);
         model.addAttribute("event", eventOptional.get());
         model.addAttribute("comments", eventService.getAllCommentsToEvent(Long.parseLong(eventId)));
+//        model.addAttribute("users", eventService.showAllUsersAssignedToEvent(Long.parseLong(eventId)));
 
         return "event/showSingleEvent";
     }
 
     @PostMapping("/event/{id}/addUserToEvent")
     public String handleNewUserAssignedToEvent(@PathVariable String id, Authentication authentication) {
-        eventService.assignedUseToEvent(Long.parseLong(id), authentication.getName());
+        eventService.assignedUserToEvent(Long.parseLong(id), authentication.getName());
+        return "redirect:/event/" + id;
+    }
+
+    @PostMapping("/event/{id}/removeUserFromEvent")
+    public String removeUserAssignedToEvent(@PathVariable String id, Authentication authentication) {
+        eventService.removeUserFromEvent(Long.parseLong(id), authentication.getName());
         return "redirect:/event/" + id;
     }
 
@@ -91,7 +100,7 @@ public class EventController {
 
         eventService.editEvent(Long.valueOf(eventId), eventEditForm);
 
-        return "redirect:/event/"+eventId;
+        return "redirect:/event/" + eventId;
     }
 
     @PostMapping("/addEvent")

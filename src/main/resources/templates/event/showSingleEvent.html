@@ -2,30 +2,45 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>SingleEvent</title>
+    <title th:text="${event.name}">SingleEvent</title>
 </head>
 <body>
-
-<h1 th:text="${event.name}">Event title</h1>
-Data rozpoczęcia: <span th:text="${#temporals.format(event.startDate,'dd-MM-yyyy HH:mm')}">2019-03-02 11:07:10</span>
-<br>Data zakończenia: <span th:text="${#temporals.format(event.stopDate, 'dd-MM-yyyy HH:mm')}">2019-03-02 11:07:10</span>
-<p th:text="${event.decription}"> Event description</p>
-
-<br>
-<br>
-<div th:if="${showCommentForm}">
-    <form method="post" th:action="@{/event/{id}/comment/add(id=${event.id})}">
-        <textarea name="commentBody"></textarea>
-        <input type="hidden" name="eventId" th:value="${event.id}">
-        <input type="submit" value="Dodaj komentarz">
-    </form>
-</div>
-
-<div style="border: solid green 3px" th:each="comment:${comments}">
-    <h1 th:text="${comment.body}"></h1>
-    <h1 th:text="${comment.added}"></h1>
-    <h1 th:text="${comment.getCommentator().email}"></h1>
+<div align="center">
+    <h1 th:text="${event.name}">Event title</h1>
+    Data rozpoczęcia: <span
+        th:text="${#temporals.format(event.startDate,'dd-MM-yyyy HH:mm')}">2019-03-02 11:07:10</span>
+    <br>Data zakończenia: <span
+        th:text="${#temporals.format(event.stopDate, 'dd-MM-yyyy HH:mm')}">2019-03-02 11:07:10</span>
+    <p>Opis wydarzenia:<br>
+        <span th:text="${event.decription}"></span></p>
+    <p>Właściciel wydarzenia: <span th:text="${event.getOwner().getEmail()}"></span></p>
     <br>
+    <form method="get" th:action="@{/event/editEvent/{eventId} (eventId=${event.id})}">
+        <input type="submit" value="Edytuj">
+    </form>
+    <br>
+    <div th:if="${showCommentForm}">
+        <form method="post" th:action="@{/event/{id}/comment/add(id=${event.id})}">
+            <textarea name="commentBody" cols="40" rows="10"></textarea>
+            <input type="hidden" name="eventId" th:value="${event.id}">
+            <br>
+            <input type="submit" value="Dodaj komentarz">
+        </form>
+    </div>
+
+    <div>
+        <form method="post" th:action="@{/event/{id}/addUserToEvent(id=${event.id})}">
+            <br>
+            <input type="submit" value="Zapisz na wydarzenie">
+        </form>
+    </div>
+    <br>
+    <div style="border: solid green 3px" th:each="comment:${comments}">
+        <p th:text="${comment.body}"></p>
+        <p th:text="${comment.added}"></p>
+        <p th:text="${comment.getCommentator().email}"></p>
+        <br>
+    </div>
 </div>
 
 </body>

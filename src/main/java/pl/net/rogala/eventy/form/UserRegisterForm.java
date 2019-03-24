@@ -26,6 +26,6 @@ public class UserRegisterForm {
     private String password;
 
     @NotBlank(message = "Nick jest wymagany!")
-    @Size(max = 50, message = "Twój nick nie może mieć więcej niż {max} znaków!")
+    @Size(max = 20, message = "Twój nick nie może mieć więcej niż {max} znaków!")
     private String nick;
 }

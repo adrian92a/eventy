@@ -5,7 +5,7 @@
     <title>Add New Event</title>
 </head>
 <body>
-<div align="center">
+<div class="myBo" align="center">
     <form method="post" th:action="@{/addEvent}" th:object="${newEventForm}">
         <br>Nazwa <input type="text" th:field="*{name}" th:errorClass="error">
         <span class="error" th:errors="*{name}"></span>

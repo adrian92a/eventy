@@ -66,8 +66,8 @@ public class EventService {
         return commentRepository.findAllByEvent_Id(eventId);
     }
 
-    public List<User> showAllUsersAssignedToEvent(Long eventId) {
-        return assignedToEventRepository.findAllUsersAssignedToEventById(eventId);
+    public List<AssignedToEvent> showAllUsersAssignedToEvent(Long eventId) {
+        return assignedToEventRepository.findAllByEvent_Id(eventId);
     }
 
     public void addNewComment(Long eventId, String userEmail, String body) {

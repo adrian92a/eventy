@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Login</title>
     <style>
-        .box {
+        .myBox {
             border: 2px solid red;
             border-radius: 8px;
             background-color: lightsteelblue;
@@ -14,7 +14,7 @@
     </style>
 </head>
 <body>
-<div class="box" align="center">
+<div class="myBox" align="center">
     <form method="post" th:action="@{/login-post}">
         <h1>Logowanie użytkowników</h1>
         <br>Login: <input type="text" name="username" placeholder="wpisz adres email">
@@ -22,6 +22,7 @@
         <br>
         <br><input type="submit" value="Zaloguj">
     </form>
+
 </div>
 </body>
 </html>

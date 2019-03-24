@@ -9,12 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.net.rogala.eventy.entity.AssignedToEvent;
 import pl.net.rogala.eventy.entity.User;
 
-import java.lang.annotation.Native;
 import java.util.List;
 
 @Repository
 public interface AssignedToEventRepository extends JpaRepository<AssignedToEvent, Long> {
-    List<User> findAllUsersAssignedToEventById(Long eventId);
+    List<AssignedToEvent> findAllByEvent_Id(Long eventId);
 
     @Modifying
     @Transactional

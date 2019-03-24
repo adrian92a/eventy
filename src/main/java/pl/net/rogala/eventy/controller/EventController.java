@@ -43,7 +43,9 @@ public class EventController {
         model.addAttribute("showCommentForm", showCommentForm);
         model.addAttribute("event", eventOptional.get());
         model.addAttribute("comments", eventService.getAllCommentsToEvent(Long.parseLong(eventId)));
-//        model.addAttribute("users", eventService.showAllUsersAssignedToEvent(Long.parseLong(eventId)));
+        model.addAttribute("assignedToUserEntity", eventService.showAllUsersAssignedToEvent(Long.parseLong(eventId)));
+        boolean showAssignedUserToEvent = authentication != null;
+        model.addAttribute("showAssignedUserToEvent", showAssignedUserToEvent);
 
         return "event/showSingleEvent";
     }
@@ -59,6 +61,12 @@ public class EventController {
         eventService.removeUserFromEvent(Long.parseLong(id), authentication.getName());
         return "redirect:/event/" + id;
     }
+
+//    @PostMapping("/event/{id}/showUsersAssignedToEvent")
+//    public String showUsersAssignedToEvent(@PathVariable String id) {
+//        eventService.showAllUsersAssignedToEvent(Long.parseLong(id));
+//        return "redirect:/event/" + id;
+//    }
 
     @GetMapping("/addEvent")
     public String addNewEvent(Model model) {

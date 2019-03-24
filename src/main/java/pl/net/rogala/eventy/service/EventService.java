@@ -1,22 +1,27 @@
 package pl.net.rogala.eventy.service;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.Expressions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-import pl.net.rogala.eventy.entity.AssignedToEvent;
-import pl.net.rogala.eventy.entity.Comment;
-import pl.net.rogala.eventy.entity.Event;
+import pl.net.rogala.eventy.entity.*;
+
+import pl.net.rogala.eventy.model.EventDto;
+import pl.net.rogala.eventy.model.EventType;
+import pl.net.rogala.eventy.model.FindEventDto;
 import pl.net.rogala.eventy.repository.AssignedToEventRepository;
 import pl.net.rogala.eventy.repository.CommentRepository;
-import pl.net.rogala.eventy.entity.User;
 import pl.net.rogala.eventy.form.NewEventForm;
 import pl.net.rogala.eventy.form.EventEditForm;
 import pl.net.rogala.eventy.repository.EventRepository;
 import pl.net.rogala.eventy.repository.UserRepository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.Optional;
 
 @Service
@@ -31,6 +36,8 @@ public class EventService {
     private NewEventForm eventForm;
     private CommentRepository commentRepository;
 
+    private final QEvent event = QEvent.event;
+
     @Autowired
     public EventService(EventRepository eventRepository, UserRepository userRepository, AssignedToEventRepository assignedToEventRepository, UserService userService, NewEventForm eventForm, CommentRepository commentRepository) {
         this.eventRepository = eventRepository;
@@ -44,6 +51,27 @@ public class EventService {
 
     public List<Event> showEventList() {
         return eventRepository.findAll(Sort.by("startDate"));
+    }
+
+    public List<EventDto> getEvents(FindEventDto findEventDto) {
+
+        System.out.println("Name: " + findEventDto.getName() + "     Event Type:" + findEventDto.getEventType());
+        BooleanExpression booleanExpression = Expressions.asBoolean(true).isTrue();
+        if (findEventDto.getName() != null) {
+            booleanExpression = booleanExpression.and(event.name.containsIgnoreCase(findEventDto.getName()));
+        }
+        if (findEventDto.getEventType() != null) {
+            if (findEventDto.getEventType().equals(EventType.CURRENT)) {
+
+                booleanExpression = booleanExpression.and(event.startDate.after(LocalDate.now()).and(event.startDate.before(LocalDate.now())));
+            }
+            if (findEventDto.getEventType().equals(EventType.FUTURE)) {
+                booleanExpression = booleanExpression.and(event.startDate.after(LocalDate.now()));
+            }
+        }
+
+        List<Event> all = eventRepository.findAll(booleanExpression);
+        return all.stream().map(Event::toEventDto).collect(Collectors.toList());
     }
 
     public Optional<Event> getSingleEvent(Long eventId) {
@@ -111,6 +139,4 @@ public class EventService {
         userService.addOrganizerRole(owner);
         eventRepository.save(event);
     }
-
-
 }

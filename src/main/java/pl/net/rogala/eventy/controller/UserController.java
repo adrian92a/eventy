@@ -7,10 +7,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import pl.net.rogala.eventy.model.EventType;
+import pl.net.rogala.eventy.model.FindEventDto;
 import pl.net.rogala.eventy.form.UserRegisterForm;
 import pl.net.rogala.eventy.service.EventService;
 import pl.net.rogala.eventy.service.UserService;
-
 
 import javax.validation.Valid;
 
@@ -20,9 +21,8 @@ public class UserController {
     private UserService userService;
     private EventService eventService;
 
-
     @Autowired
-    public UserController(UserService userService, EventService eventService){
+    public UserController(UserService userService, EventService eventService) {
         this.userService = userService;
         this.eventService = eventService;
     }
@@ -54,10 +54,12 @@ public class UserController {
      * @param authentication
      * @return "home" page template
      */
-
     @RequestMapping(value = "/home")
     public String home(Model model, Authentication authentication, Model modelForEventList) {
         model.addAttribute("loggedUser", authentication.getName());
+        modelForEventList.addAttribute("events",eventService.showEventList());
+        model.addAttribute("findEventDto",new FindEventDto());
+        model.addAttribute("eventTypes", EventType.values());
         modelForEventList.addAttribute("eventList", eventService.showEventList());
         return "home";
     }

@@ -2,12 +2,8 @@ package pl.net.rogala.eventy.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
-
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,28 +17,22 @@ import pl.net.rogala.eventy.model.EventType;
 import pl.net.rogala.eventy.model.FindEventDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
-
 import pl.net.rogala.eventy.service.EventService;
-
 import javax.validation.Valid;
-import java.util.Optional;
-
-import pl.net.rogala.eventy.form.NewEventForm;
-
-
-import java.time.LocalDateTime;
+import pl.net.rogala.eventy.service.UserContextService;
 import java.util.List;
-import java.util.Optional;
+
 
 @Controller
 public class EventController {
 
     private EventService eventService;
+    private UserContextService userContextService;
 
     @Autowired
-    public EventController(EventService eventService) {
+    public EventController(EventService eventService, UserContextService userContextService) {
         this.eventService = eventService;
+        this.userContextService = userContextService;
     }
 
 
@@ -52,7 +42,10 @@ public class EventController {
         if (!eventOptional.isPresent()) {
             return "event/eventNotFound";
         }
+
+        boolean showEditForm = authentication!=null && userContextService.hasAnyRole("ROLE_ORGANIZER","ROLE_ADMIN");
         boolean showCommentForm = authentication != null;
+        model.addAttribute("showEditForm", showEditForm);
         model.addAttribute("showCommentForm", showCommentForm);
         model.addAttribute("event", eventOptional.get());
         model.addAttribute("comments", eventOptional.get().getComments());

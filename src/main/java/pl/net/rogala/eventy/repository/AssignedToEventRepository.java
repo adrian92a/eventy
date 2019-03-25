@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.net.rogala.eventy.entity.AssignedToEvent;
 import pl.net.rogala.eventy.entity.User;
 
-import java.lang.annotation.Native;
 import java.util.List;
 
 @Repository

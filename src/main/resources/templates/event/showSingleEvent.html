@@ -6,6 +6,11 @@
 </head>
 <body>
 <div align="center">
+    <div align="left">
+        <a href="/home">
+            <button>HOME</button>
+        </a>
+    </div>
     <h1 th:text="${event.name}">Event title</h1>
     Data rozpoczęcia: <span
         th:text="${#temporals.format(event.startDate,'dd-MM-yyyy HH:mm')}">2019-03-02 11:07:10</span>
@@ -48,6 +53,14 @@
         <p th:text="${comment.getCommentator().nick}"></p>
         <br>
     </div>
+    <p>Lista zapisanych uzytkownkow</p>
+    <div th:if="${showAssignedUserToEvent}" th:each="user:${assignedToUserEntity}">
+        <p th:text="${user.getUser().getNick()}"></p>
+    </div>
+
+    <footer>
+        <p>&copy; Repozytorium wydarzeń</p>
+    </footer>
 </div>
 </div>
 </body>

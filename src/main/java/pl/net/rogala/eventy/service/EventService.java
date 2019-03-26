@@ -80,8 +80,8 @@ public class EventService {
         eventRepository.save(event);
     }
 
-    public List<User> showAllUsersAssignedToEvent(Long eventId) {
-        return assignedToEventRepository.findAllUsersAssignedToEventById(eventId);
+    public List<AssignedToEvent> showAllUsersAssignedToEvent(Long eventId) {
+        return assignedToEventRepository.findAllByEvent_Id(eventId);
     }
 
     public void assignedUserToEvent(Long eventId, String userName) {

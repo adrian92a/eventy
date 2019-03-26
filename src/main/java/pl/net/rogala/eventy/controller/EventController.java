@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.net.rogala.eventy.entity.Event;
+
 import java.util.Optional;
+
 import org.springframework.validation.BindingResult;
 import pl.net.rogala.eventy.form.EventEditForm;
 import pl.net.rogala.eventy.form.NewEventForm;
@@ -18,8 +20,11 @@ import pl.net.rogala.eventy.model.FindEventDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import pl.net.rogala.eventy.service.EventService;
+
 import javax.validation.Valid;
+
 import pl.net.rogala.eventy.service.UserContextService;
+
 import java.util.List;
 
 
@@ -43,15 +48,15 @@ public class EventController {
             return "event/eventNotFound";
         }
 
-        boolean showEditForm = authentication!=null && userContextService.hasAnyRole("ROLE_ORGANIZER","ROLE_ADMIN");
+        boolean showEditForm = authentication != null && userContextService.hasAnyRole("ROLE_ORGANIZER", "ROLE_ADMIN");
         boolean showCommentForm = authentication != null;
         model.addAttribute("showEditForm", showEditForm);
         model.addAttribute("showCommentForm", showCommentForm);
         model.addAttribute("event", eventOptional.get());
         model.addAttribute("comments", eventOptional.get().getComments());
-//        model.addAttribute("users", eventService.showAllUsersAssignedToEvent(Long.parseLong(eventId)));
-
-
+        model.addAttribute("users", eventService.showAllUsersAssignedToEvent(Long.parseLong(eventId)));
+        boolean showAssignedUserToEvent = authentication != null;
+        model.addAttribute("showAssignedUserToEvent", showAssignedUserToEvent);
         return "event/showSingleEvent";
     }
 
@@ -66,6 +71,12 @@ public class EventController {
         eventService.removeUserFromEvent(Long.parseLong(id), authentication.getName());
         return "redirect:/event/" + id;
     }
+
+//    @PostMapping("/event/{id}/showUsersAssignedToEvent")
+//    public String showUsersAssignedToEvent(@PathVariable String id) {
+//        eventService.showAllUsersAssignedToEvent(Long.parseLong(id));
+//        return "redirect:/event/" + id;
+//    }
 
     @GetMapping("/addEvent")
     public String addNewEvent(Model model) {
@@ -117,14 +128,14 @@ public class EventController {
     public String showMainPage(
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "eventType", required = false) EventType eventType,
-            @ModelAttribute("findEventDto") FindEventDto findEventDto,Authentication authentication,
+            @ModelAttribute("findEventDto") FindEventDto findEventDto, Authentication authentication,
             Model model) {
         model.addAttribute("eventTypes", EventType.values());
         findEventDto.setName(name);
         findEventDto.setEventType(eventType);
         List<EventDto> events = eventService.getEvents(findEventDto);
 
-        model.addAttribute(     "events", events);
+        model.addAttribute("events", events);
         model.addAttribute("loggedUser", authentication.getName());
         return "event/findEventsResults";
     }

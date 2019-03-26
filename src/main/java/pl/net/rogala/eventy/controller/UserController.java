@@ -56,7 +56,7 @@ public class UserController {
      */
     @RequestMapping(value = "/home")
     public String home(Model model, Authentication authentication, Model modelForEventList) {
-        model.addAttribute("loggedUser", authentication.getName());
+//        model.addAttribute("loggedUser", authentication.getName());
         modelForEventList.addAttribute("events",eventService.showEventList());
         model.addAttribute("findEventDto",new FindEventDto());
         model.addAttribute("eventTypes", EventType.values());

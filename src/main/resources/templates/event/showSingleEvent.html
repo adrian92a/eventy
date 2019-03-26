@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${event.name}">SingleEvent</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
 </head>
 <body>
-<div align="center">
+<div class="myBox" align="center">
     <div align="left">
         <a href="/home">
-            <button>HOME</button>
+            <button>WYDARZENIA</button>
         </a>
     </div>
     <h1 th:text="${event.name}">Event title</h1>
@@ -33,25 +34,26 @@
             <br>
             <input type="submit" value="Dodaj komentarz">
         </form>
-    <div>
-        <form method="post" th:action="@{/event/{id}/addUserToEvent(id=${event.id})}">
-            <br>
-            <input type="submit" value="Zapisz na wydarzenie">
-        </form>
-    </div>
-    <div>
-        <form method="post" th:action="@{/event/{id}/removeUserFromEvent(id=${event.id})}">
-            <br>
-            <input type="submit" value="Wypisz z wydarzenia">
-        </form>
-    </div>
-
-    <br>
-    <div style="border: solid green 2px" th:each="comment:${comments}">
-        <p th:text="${comment.body}"></p>
-        <p th:text="${comment.added}"></p>
-        <p th:text="${comment.getCommentator().nick}"></p>
+        <div>
+            <form method="post" th:action="@{/event/{id}/addUserToEvent(id=${event.id})}">
+                <br>
+                <input type="submit" value="Zapisz na wydarzenie">
+            </form>
+        </div>
+        <div>
+            <form method="post" th:action="@{/event/{id}/removeUserFromEvent(id=${event.id})}">
+                <br>
+                <input type="submit" value="Wypisz z wydarzenia">
+            </form>
+        </div>
         <br>
+        <p>Komentarze</p>
+        <div style="border: solid green 2px" th:each="comment:${comments}">
+            <p th:text="${comment.body}"></p>
+            <p th:text="${comment.added}"></p>
+            <p th:text="${comment.getCommentator().nick}"></p>
+            <br>
+        </div>
     </div>
     <p>Lista zapisanych uzytkownkow</p>
     <div th:if="${showAssignedUserToEvent}" th:each="user:${assignedToUserEntity}">
@@ -61,7 +63,7 @@
     <footer>
         <p>&copy; Repozytorium wydarzeń</p>
     </footer>
-</div>
+
 </div>
 </body>
 </html>

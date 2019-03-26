@@ -3,48 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <style>
-        a:link, a:visited {
-            background-color: cornflowerblue;
-            color: white;
-            padding: 15px 25px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        a:hover, a:active {
-            background-color: red;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
 </head>
 <body>
 <div class="myBox" align="center">
+    <div align="left">
+    <span align="left">
+        <a href="/addEvent">
+            <button>DODAJ WYDARZENIE</button>
+        </a>
+        <a href="/">
+            <button>START</button>
+        </a>
+    </span>
+    </div>
     <h1>EVENTY</h1>
     <h3>Niebanalny system obsługi wydarzeń</h3>
     <h3>Zalogowany użytkownik: <span th:text="${loggedUser}"></span></h3>
     <h3>Lista aktualnych i nadchodzących wydarzeń:</h3>
 
 
-<form th:object="${findEventDto}" th:action="@{/findEvents}" >
+    <form th:object="${findEventDto}" th:action="@{/findEvents}">
 
 
-    Szukaj posta: <input type="text"  name="name" th:field="*{name}" > <br/>
+        Wyszukaj wydarzenie: <input type="text" name="name" th:field="*{name}"> <br/>
 
-    <select th:class="form-control" name="eventType" th:field="*{eventType}" >
-        <option th:each="eventType : ${eventTypes}"
-                th:value="${eventType}"
-                th:utext="${eventType.getLabel()}"/>
-    </select>
+        <select th:class="form-control" name="eventType" th:field="*{eventType}">
+            <option th:each="eventType : ${eventTypes}"
+                    th:value="${eventType}"
+                    th:utext="${eventType.getLabel()}"/>
+        </select>
 
 
-
-    <br>
-    <input type="submit" value="Submit">
-</form>
-<div th:if="${events.isEmpty()}">
-    <span colspan="2">Nie ma żadnego wydarzenia</span>
-</div>
+        <br>
+        <input type="submit" value="Szukaj">
+    </form>
+    <div th:if="${events.isEmpty()}">
+        <span colspan="2">Nie ma żadnego wydarzenia</span>
+    </div>
     <div th:if="${eventList.isEmpty()}">
         <span colspan="2">Nie ma żadnego wydarzenia</span>
     </div>
@@ -66,6 +62,11 @@
 
     </div>
     <a href="/logout">Logout</a>
+
+    <footer>
+        <p>&copy; Repozytorium wydarzeń</p>
+    </footer>
+
 </div>
 </body>
 </html>

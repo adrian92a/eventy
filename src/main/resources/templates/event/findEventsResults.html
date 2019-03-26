@@ -3,60 +3,46 @@
 <head>
 
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-         a:link, a:visited {
-             background-color: cornflowerblue;
-             color: white;
-             padding: 15px 25px;
-             text-align: center;
-             text-decoration: none;
-             display: inline-block;
-         }
-
-        a:hover, a:active {
-            background-color: red;
-        }
-
-    </style>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
 </head>
 <body>
-<h1>EVENTY</h1>
-<h3>Niebanalny system obsługi wydarzeń</h3>
-<h3>Zalogowany użytkownik:  <span th:text="${loggedUser}"></span></h3>
-<h3>Lista aktualnych i nadchodzących wydarzeń:</h3>
+<div class="myBox" aling="center">
+    <h1>EVENTY</h1>
+    <h3>Niebanalny system obsługi wydarzeń</h3>
+    <h3>Zalogowany użytkownik: <span th:text="${loggedUser}"></span></h3>
+    <h3>Lista aktualnych i nadchodzących wydarzeń:</h3>
 
 
-<form th:object="${findEventDto}" th:action="@{/findEvents}" >
+    <form th:object="${findEventDto}" th:action="@{/findEvents}">
 
 
-    <h3 style="color: #0aff13">Szukaj posta:</h3> <input type="text"  name="name" th:field="*{name}" > <br/>
+        <h3 style="color: #0aff13">Wyszukaj wydarzenie:</h3> <input type="text" name="name" th:field="*{name}"> <br/>
 
-    <select  th:class="form-control" name="eventType" th:field="*{eventType}" >
-        <option style="color:#201a80" th:each="eventType : ${eventTypes}"
-                th:value="${eventType}"
-                th:utext="${eventType.getLabel()}"/>
-    </select>
+        <select th:class="form-control" name="eventType" th:field="*{eventType}">
+            <option style="color:#201a80" th:each="eventType : ${eventTypes}"
+                    th:value="${eventType}"
+                    th:utext="${eventType.getLabel()}"/>
+        </select>
 
 
+        <br>
+        <input type="submit" value="Szukaj">
+    </form>
 
-    <br>
-    <input type="submit" value="Submit">
-</form>
+    <div th:if="${events.isEmpty()}">
+        <span colspan="2">Nie ma żadnego wydarzenia</span>
+    </div>
 
-<div th:if="${events.isEmpty()}">
-    <span colspan="2">Nie ma żadnego wydarzenia</span>
-</div>
-
-<div th:each="event:${events}">
-    <h2>
-        <a th:text="${event.name}" th:href="@{/event/{eventId}(eventId=${event.id})}">Nazwa</a>
-    </h2>
-    <div th:text="${#temporals.format(event.startDate,'dd-MM-yyyy HH:mm')}">Start</div>
-    <!--<div th:if="${events.empty}">-->
-    <!--<span colspan="2">Nie ma żadnego wydarzenia</span>-->
-    <!--</div>-->
-</div>
-<!--<div th:each="event:${events}">-->
+    <div th:each="event:${events}">
+        <h2>
+            <a th:text="${event.name}" th:href="@{/event/{eventId}(eventId=${event.id})}">Nazwa</a>
+        </h2>
+        <div th:text="${#temporals.format(event.startDate,'dd-MM-yyyy HH:mm')}">Start</div>
+        <!--<div th:if="${events.empty}">-->
+        <!--<span colspan="2">Nie ma żadnego wydarzenia</span>-->
+        <!--</div>-->
+    </div>
+    <!--<div th:each="event:${events}">-->
     <!--<h4 th:text="${event.name}">Nazwa</h4>-->
     <!--<div th:text="${#temporals.format(event.startDate,'dd MM yyyy HH:mm')}">Start</div>-->
     <!--<div th:text="${#temporals.format(event.stopDate, 'dd-MM-yyyy HH:mm')}">Stop</div>-->
@@ -64,33 +50,33 @@
     <!--<p th:unless="${#strings.length(event.decription)>49}" th:text="${event.decription}">Skrócony opis</p>-->
     <!--&lt;!&ndash;<div th:text="${event.getOwner().nick}"></div>&ndash;&gt;-->
 
-<!--</div>-->
+    <!--</div>-->
 
 
-<a href= "/logout">Logout</a>
+    <a href="/logout">Logout</a>
 
 
-<!--<table>-->
+    <!--<table>-->
     <!--<thread>-->
-        <!--<tr>-->
-            <!--<th> Nazwa </th>-->
-            <!--<th> Początek </th>-->
-            <!--<th> Koniec </th>-->
-            <!--<th> Opis </th>-->
-        <!--</tr>-->
+    <!--<tr>-->
+    <!--<th> Nazwa </th>-->
+    <!--<th> Początek </th>-->
+    <!--<th> Koniec </th>-->
+    <!--<th> Opis </th>-->
+    <!--</tr>-->
     <!--</thread>-->
     <!--<tbody>-->
 
     <!--<tr th:each="event:${events}">-->
-        <!--<td><span th:text="${event.name}">Nazwa</span></td>-->
-        <!--<td><span th:text="${#temporals.format(event.startDate,'dd MM yyyy HH:mm')}"> Początek </span></td>-->
-        <!--<td><span th:text="${#temporals.format(event.stopDate, 'dd-MM-yyyy HH:mm')}"> Koniec  </span></td>-->
-        <!--<td><span th:text="${#strings.substring(event.decription, 0, 49)}"> Opis </span></td>-->
+    <!--<td><span th:text="${event.name}">Nazwa</span></td>-->
+    <!--<td><span th:text="${#temporals.format(event.startDate,'dd MM yyyy HH:mm')}"> Początek </span></td>-->
+    <!--<td><span th:text="${#temporals.format(event.stopDate, 'dd-MM-yyyy HH:mm')}"> Koniec  </span></td>-->
+    <!--<td><span th:text="${#strings.substring(event.decription, 0, 49)}"> Opis </span></td>-->
     <!--</tr>-->
     <!--</tbody>-->
-<!--</table>-->
+    <!--</table>-->
 
-
+</div>
 </body>
 </html>
 

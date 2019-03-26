@@ -1,0 +1,20 @@
+.myBox {
+    border: 2px solid red;
+    border-radius: 8px;
+    background-color: lightsteelblue;
+    margin: 25px 350px 50px 350px;
+    padding: 6%;
+}
+
+a:link, a:visited {
+    background-color: cornflowerblue;
+    color: white;
+    padding: 15px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+a:hover, a:active {
+    background-color: red;
+}

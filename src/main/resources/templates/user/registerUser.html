@@ -3,10 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>RegisterUser</title>
-
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
 </head>
 <body>
 <div class="myBox" align="center">
+    <div align="left">
+        <span>
+        <a href="/">
+            <button>START</button>
+        </a>
+    </span>
+    </div>
     <form method="post" th:action="@{/register}" th:object="${userRegisterForm}">
         <h1>Rejestracja użytkowników</h1>
         <br>E-mail: <input type="text" placeholder="podaj adres email" th:field="*{email}" th:errorClass="error">
@@ -14,7 +21,8 @@
         <br>Hasło: <input type="password" placeholder="podaj hasło(min. 8 znaków)" th:field="*{password}"
                           th:errorClass="error">
         <span class="error" th:errors="*{password}"></span>
-        <br>Nick: <input type="text" placeholder="podaj nick(max. 20 znaków)" th:field="*{nick}" th:errorClass="error">
+        <br>Nick: <input type="text" placeholder="podaj nick(max. 20 znaków)" th:field="*{nick}"
+                         th:errorClass="error">
         <span class="error" th:errors="*{nick}"></span>
         <br>
         <br><input type="submit" value="Zarejestruj">

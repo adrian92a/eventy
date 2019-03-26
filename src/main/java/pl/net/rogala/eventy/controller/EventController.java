@@ -4,14 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.net.rogala.eventy.entity.Event;
-
-import java.util.Optional;
-
-import org.springframework.validation.BindingResult;
 import pl.net.rogala.eventy.form.EventEditForm;
 import pl.net.rogala.eventy.form.NewEventForm;
 import pl.net.rogala.eventy.model.EventDto;
@@ -26,6 +27,7 @@ import javax.validation.Valid;
 import pl.net.rogala.eventy.service.UserContextService;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -54,9 +56,10 @@ public class EventController {
         model.addAttribute("showCommentForm", showCommentForm);
         model.addAttribute("event", eventOptional.get());
         model.addAttribute("comments", eventOptional.get().getComments());
-        model.addAttribute("users", eventService.showAllUsersAssignedToEvent(Long.parseLong(eventId)));
+        model.addAttribute("assignedToUserEntity", eventService.showAllUsersAssignedToEvent(Long.parseLong(eventId)));
         boolean showAssignedUserToEvent = authentication != null;
         model.addAttribute("showAssignedUserToEvent", showAssignedUserToEvent);
+
         return "event/showSingleEvent";
     }
 

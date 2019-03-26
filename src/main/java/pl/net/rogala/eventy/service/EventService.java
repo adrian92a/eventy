@@ -29,6 +29,7 @@ public class EventService {
 
     private EventRepository eventRepository;
     private AssignedToEventRepository assignedToEventRepository;
+
     private UserService userService;
 
     private final QEvent event = QEvent.event;
@@ -114,4 +115,6 @@ public class EventService {
         userService.addOrganizerRole(owner);
         eventRepository.save(event);
     }
+
+
 }

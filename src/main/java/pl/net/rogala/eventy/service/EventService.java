@@ -28,25 +28,16 @@ import java.util.Optional;
 public class EventService {
 
     private EventRepository eventRepository;
-    private UserRepository userRepository;
     private AssignedToEventRepository assignedToEventRepository;
-
     private UserService userService;
-
-    private NewEventForm eventForm;
-    private CommentRepository commentRepository;
 
     private final QEvent event = QEvent.event;
 
     @Autowired
-    public EventService(EventRepository eventRepository, UserRepository userRepository, AssignedToEventRepository assignedToEventRepository, UserService userService, NewEventForm eventForm, CommentRepository commentRepository) {
+    public EventService(EventRepository eventRepository, AssignedToEventRepository assignedToEventRepository, UserService userService) {
         this.eventRepository = eventRepository;
-        this.userRepository = userRepository;
         this.assignedToEventRepository = assignedToEventRepository;
         this.userService = userService;
-        this.eventForm = eventForm;
-        this.commentRepository = commentRepository;
-
     }
 
     public List<Event> showEventList() {
@@ -89,35 +80,20 @@ public class EventService {
         eventRepository.save(event);
     }
 
-
-    public List<Comment> getAllCommentsToEvent(Long eventId) {
-        return commentRepository.findAllByEvent_Id(eventId);
-    }
-
     public List<User> showAllUsersAssignedToEvent(Long eventId) {
         return assignedToEventRepository.findAllUsersAssignedToEventById(eventId);
-    }
-
-    public void addNewComment(Long eventId, String userEmail, String body) {
-        Comment comment = new Comment();
-        comment.setEvent(eventRepository.findById(eventId).get());
-        comment.setAdded(LocalDateTime.now());
-        comment.setBody(body);
-        comment.setCommentator(userRepository.findByEmail(userEmail).get());
-        commentRepository.save(comment);
-
     }
 
     public void assignedUserToEvent(Long eventId, String userName) {
         AssignedToEvent assignedToEvent = new AssignedToEvent();
         assignedToEvent.setEvent(eventRepository.findById(eventId).get());
         assignedToEvent.setAddedDate(LocalDateTime.now());
-        assignedToEvent.setUser(userRepository.findByEmail(userName).get());
+        assignedToEvent.setUser(userService.getUser(userName).get());
         assignedToEventRepository.save(assignedToEvent);
     }
 
     public void removeUserFromEvent(Long eventId, String userEmail) {
-        Long userId = userRepository.findByEmail(userEmail).get().getId();
+        Long userId = userService.getUser(userEmail).get().getId();
         assignedToEventRepository.removeRecord(userId, eventId);
     }
 
@@ -133,9 +109,8 @@ public class EventService {
         event.setDecription(eventForm.getDescription());
         event.setStartDate(eventForm.getStartDate());
         event.setStopDate(eventForm.getStopDate());
-        User owner = userRepository.findByEmail(authentication.getName()).get();
+        User owner = userService.getUser(authentication.getName()).get();
         event.setOwner(owner);
-//        userRepository.addOrganizerRoleForEventOwner(owner.getId());
         userService.addOrganizerRole(owner);
         eventRepository.save(event);
     }

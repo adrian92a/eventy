@@ -10,6 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-    List<Comment> findAllByEvent_Id(Long id);
+    List<Comment> findAllByEventId(Long id);
 
 }

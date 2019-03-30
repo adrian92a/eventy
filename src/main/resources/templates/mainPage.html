@@ -3,37 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <style>
-
-        .box {
-            border: 2px solid red;
-            border-radius: 8px;
-            background-color: lightsteelblue;
-            margin: 25px 350px 50px 350px;
-            padding: 8%;
-        }
-
-        a:link, a:visited {
-            background-color: cornflowerblue;
-            color: white;
-            padding: 15px 25px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        a:hover, a:active {
-            background-color: red;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
 </head>
 <body>
-<div class="box" align="center">
+<div class="myBox" align="center">
+    <span>
+        <a href="/home">
+            <button>WYDARZENIA</button>
+        </a>
+        <a href="/login">
+            <button>LOGOWANIE</button>
+        </a>
+        <a href="/register">
+            <button>REJESTRACJA</button>
+        </a>
+    </span>
     <h1>EVENTY</h1>
-    <h3>Niebanalny system obsługi wydarzeń</h3>
-    <br><a href="/login">Zaloguj się</a>
+    <h2>Niebanalny system obsługi wydarzeń</h2>
     <br>
-    <br><a href="/register">Zarejestruj się</a>
+    <footer>
+        <p>&copy; Repozytorium wydarzeń</p>
+    </footer>
+
 </div>
 </body>
 </html>

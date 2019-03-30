@@ -12,11 +12,9 @@ import pl.net.rogala.eventy.model.EventDto;
 import pl.net.rogala.eventy.model.EventType;
 import pl.net.rogala.eventy.model.FindEventDto;
 import pl.net.rogala.eventy.repository.AssignedToEventRepository;
-import pl.net.rogala.eventy.repository.CommentRepository;
 import pl.net.rogala.eventy.form.NewEventForm;
 import pl.net.rogala.eventy.form.EventEditForm;
 import pl.net.rogala.eventy.repository.EventRepository;
-import pl.net.rogala.eventy.repository.UserRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -29,6 +27,7 @@ public class EventService {
 
     private EventRepository eventRepository;
     private AssignedToEventRepository assignedToEventRepository;
+
     private UserService userService;
 
     private final QEvent event = QEvent.event;
@@ -80,8 +79,8 @@ public class EventService {
         eventRepository.save(event);
     }
 
-    public List<User> showAllUsersAssignedToEvent(Long eventId) {
-        return assignedToEventRepository.findAllUsersAssignedToEventById(eventId);
+    public List<AssignedToEvent> showAllUsersAssignedToEvent(Long eventId) {
+        return assignedToEventRepository.findAllByEventId(eventId);
     }
 
     public void assignedUserToEvent(Long eventId, String userName) {
@@ -114,4 +113,6 @@ public class EventService {
         userService.addOrganizerRole(owner);
         eventRepository.save(event);
     }
+
+
 }

@@ -29,5 +29,4 @@ public class AssignedToEvent {
     private User user;
 
 
-
 }

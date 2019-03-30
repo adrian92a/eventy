@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Edit Event</title>
     <style>
         .box {
             border: 2px solid red;
@@ -15,12 +15,10 @@
 </head>
 <body>
 <div class="box" align="center">
-    <form method="post" th:action="@{/login-post}">
-        <h1>Logowanie użytkowników</h1>
-        <br>Login: <input type="text" name="username" placeholder="wpisz adres email">
-        <br>Hasło: <input type="password" name="password" placeholder="wpisz hasło">
-        <br>
-        <br><input type="submit" value="Zaloguj">
+    <form method="post" th:object="${commentEditForm}" th:action="@{/comment/{commentId}/editComment(commentId=${comment.id})}">
+        <br>Opis: <input type="text" th:field="*{body}" th:errorClass="error">
+        <span class="error" th:errors="*{body}"></span>
+        <br><input type="submit" value="Zmień">
     </form>
 </div>
 </body>

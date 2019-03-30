@@ -1,28 +1,28 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>RegisterUser</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    <style>
+        .box {
+            border: 2px solid red;
+            border-radius: 8px;
+            background-color: lightsteelblue;
+            margin: 25px 350px 50px 350px;
+            padding: 8%;
+        }
+    </style>
 </head>
 <body>
-<div class="myBox" align="center">
-    <div align="left">
-        <span>
-        <a href="/">
-            <button>START</button>
-        </a>
-    </span>
-    </div>
+<div class="box" align="center">
     <form method="post" th:action="@{/register}" th:object="${userRegisterForm}">
         <h1>Rejestracja użytkowników</h1>
         <br>E-mail: <input type="text" placeholder="podaj adres email" th:field="*{email}" th:errorClass="error">
         <span class="error" th:errors="*{email}"></span>
-        <br>Hasło: <input type="password" placeholder="podaj hasło(min. 8 znaków)" th:field="*{password}"
+        <br>Hasło:  <input type="password" placeholder="podaj hasło(min. 8 znaków)" th:field="*{password}"
                           th:errorClass="error">
         <span class="error" th:errors="*{password}"></span>
-        <br>Nick: <input type="text" placeholder="podaj nick(max. 20 znaków)" th:field="*{nick}"
-                         th:errorClass="error">
+        <br>Nick:   <input type="text" placeholder="podaj nick(max. 20 znaków)" th:field="*{nick}" th:errorClass="error">
         <span class="error" th:errors="*{nick}"></span>
         <br>
         <br><input type="submit" value="Zarejestruj">

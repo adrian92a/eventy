@@ -45,9 +45,9 @@ public class Event {
                 this.decription,
                 this.startDate,
                 this.stopDate,
-        this.comments.stream()
-                .map(Comment::toDto)
-                .collect(Collectors.toList()));
-            }
-
+                this.comments.stream()
+                        .map(Comment::toDto)
+                        .collect(Collectors.toList())
+        );
+    }
 }

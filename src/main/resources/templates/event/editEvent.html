@@ -7,6 +7,16 @@
 </head>
 <body>
 <div class="myBox" align="center">
+    <div align="left">
+        <a href="/home">
+            <button>WYDARZENIA</button>
+        </a>
+    </div>
+    <br>
+    <div align="center">
+        <h1>Edytuj wydarzenie</h1>
+    </div>
+    <div class="myMain">
     <form method="post" th:object="${eventEditForm}" th:action="@{/event/editEvent/{eventId}(eventId=${event.id})}">
         <br>Nazwa: <input type="text" th:field="*{name}" th:errorClass="error">
         <span class="error" th:errors="*{name}"></span>
@@ -16,6 +26,7 @@
         <br>Start: <input type="date" th:field="*{stopDate}" th:errorClass="error">
         <br><input type="submit" value="Zmień">
     </form>
+    </div>
 </div>
 </body>
 </html>

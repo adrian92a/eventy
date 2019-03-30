@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 public interface AssignedToEventRepository extends JpaRepository<AssignedToEvent, Long> {
-    List<AssignedToEvent> findAllByEvent_Id(Long eventId);
+    List<AssignedToEvent> findAllByEventId(Long eventId);
 
     @Modifying
     @Transactional

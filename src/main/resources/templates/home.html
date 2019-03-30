@@ -25,10 +25,9 @@
     <h3>Zalogowany użytkownik: <span th:text="${loggedUser}"></span></h3>
     <h3>Lista aktualnych i nadchodzących wydarzeń:</h3>
 
-
+<div class="myFind">
     <form th:object="${findEventDto}" th:action="@{/findEvents}">
-
-
+<div class="myFind">
         Wyszukaj wydarzenie: <input type="text" name="name" th:field="*{name}"> <br/>
 
         <select th:class="form-control" name="eventType" th:field="*{eventType}">
@@ -36,11 +35,11 @@
                     th:value="${eventType}"
                     th:utext="${eventType.getLabel()}"/>
         </select>
-
-
-        <br>
+</div>
         <input type="submit" value="Szukaj">
+        <br>
     </form>
+</div>
     <div th:if="${events.isEmpty()}">
         <span colspan="2">Nie ma żadnego wydarzenia</span>
     </div>
@@ -64,6 +63,7 @@
         <div th:text="${event.getOwner().nick}"></div>
 
     </div>
+
     <footer>
         <p>&copy; Repozytorium wydarzeń</p>
     </footer>

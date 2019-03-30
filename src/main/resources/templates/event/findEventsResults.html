@@ -12,9 +12,7 @@
     <h3>Zalogowany użytkownik: <span th:text="${loggedUser}"></span></h3>
     <h3>Lista aktualnych i nadchodzących wydarzeń:</h3>
 
-
     <form th:object="${findEventDto}" th:action="@{/findEvents}">
-
 
         <h3 style="color: #0aff13">Wyszukaj wydarzenie:</h3> <input type="text" name="name" th:field="*{name}"> <br/>
 
@@ -23,7 +21,6 @@
                     th:value="${eventType}"
                     th:utext="${eventType.getLabel()}"/>
         </select>
-
 
         <br>
         <input type="submit" value="Szukaj">
@@ -52,9 +49,7 @@
 
     <!--</div>-->
 
-
     <a href="/logout">Logout</a>
-
 
     <!--<table>-->
     <!--<thread>-->

@@ -2,8 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title th:text="${event.name}">SingleEvent</title>
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+
 </head>
 <body>
 <div class="myBox" align="center">
@@ -20,7 +22,7 @@
             th:text="${#temporals.format(event.stopDate, 'dd-MM-yyyy HH:mm')}">2019-03-02 11:07:10</span>
         <p>Opis wydarzenia:<br>
             <span th:text="${event.decription}"></span></p>
-        <p>Właściciel wydarzenia: <span th:text="${event.getOwner().getNick()}"></span></p>
+        <p>Organizator: <span th:text="${event.getOwner().getNick()}"></span></p>
         <br>
     </div>
         <aside class="myAside">
@@ -29,7 +31,7 @@
                 <p th:text="${user.getUser().getNick()}"></p>
             </div>
         </aside>
-    <div th:if="${showEditForm}">
+    <div class="myEdit" th:if="${showEditForm}">
         <form method="get" th:action="@{/event/editEvent/{eventId} (eventId=${event.id})}">
             <input type="submit" value="Edytuj">
         </form>
@@ -45,13 +47,12 @@
         <div>
             <form method="post" th:action="@{/event/{id}/addUserToEvent(id=${event.id})}">
                 <br>
-                <input type="submit" value="Zapisz na wydarzenie">
+                <input type="submit" value="Zapisz się na wydarzenie">
             </form>
-        </div>
-        <div>
+
             <form method="post" th:action="@{/event/{id}/removeUserFromEvent(id=${event.id})}">
                 <br>
-                <input type="submit" value="Wypisz z wydarzenia">
+                <input type="submit" value="Wypisz się z wydarzenia">
             </form>
         </div>
         <br>

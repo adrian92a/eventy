@@ -42,9 +42,16 @@ a:active {
     margin: 2% 10% 0 10%;
     font-size: 14px;
     text-align: center;
-
-
 }
+
+.myFind{
+    margin: 2%;
+}
+
+.myEdit{
+    margin: 2%;
+}
+
 
 .commentOut {
     border: 2px solid orange;
@@ -62,3 +69,4 @@ a:active {
     font-size: 14px;
     margin-top: 2%;
 }
+

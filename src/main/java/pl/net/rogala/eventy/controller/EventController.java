@@ -50,7 +50,7 @@ public class EventController {
             return "event/eventNotFound";
         }
 
-        boolean showEditForm = authentication != null && userContextService.hasAnyRole("ROLE_ORGANIZER", "ROLE_ADMIN");
+        boolean showEditForm = authentication != null;
         boolean showCommentForm = authentication != null;
         model.addAttribute("showEditForm", showEditForm);
         model.addAttribute("showCommentForm", showCommentForm);
@@ -75,12 +75,6 @@ public class EventController {
         return "redirect:/event/" + id;
     }
 
-//    @PostMapping("/event/{id}/showUsersAssignedToEvent")
-//    public String showUsersAssignedToEvent(@PathVariable String id) {
-//        eventService.showAllUsersAssignedToEvent(Long.parseLong(id));
-//        return "redirect:/event/" + id;
-//    }
-
     @GetMapping("/addEvent")
     public String addNewEvent(Model model) {
         model.addAttribute("newEventForm", new NewEventForm());
@@ -98,7 +92,6 @@ public class EventController {
 
         return "event/editEvent";
     }
-
 
     @PostMapping("/event/editEvent/{eventId}")
     public String handleEventEditForm(@PathVariable String eventId,

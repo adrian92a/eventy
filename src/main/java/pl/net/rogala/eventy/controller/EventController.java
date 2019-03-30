@@ -1,6 +1,6 @@
 package pl.net.rogala.eventy.controller;
 
-import org.hibernate.event.spi.EventType;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -15,24 +15,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.net.rogala.eventy.entity.Event;
 import java.util.Optional;
-import org.springframework.validation.BindingResult;
 import pl.net.rogala.eventy.form.EventEditForm;
 import pl.net.rogala.eventy.form.NewEventForm;
 import pl.net.rogala.eventy.model.EventDto;
 
-import pl.net.rogala.eventy.model.FindEventDto;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-
-
-import pl.net.rogala.eventy.repository.UserRepository;
-import pl.net.rogala.eventy.model.EventDto;
+import pl.net.rogala.eventy.model.EventType;
 import pl.net.rogala.eventy.model.FindEventDto;
 import pl.net.rogala.eventy.service.EventService;
 
 import javax.validation.Valid;
-import java.util.Optional;
-import pl.net.rogala.eventy.form.NewEventForm;
 import pl.net.rogala.eventy.service.UserContextService;
 
 

@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import pl.net.rogala.eventy.entity.Comment;
 import pl.net.rogala.eventy.entity.Event;
 import java.util.Optional;
 import org.springframework.validation.BindingResult;
@@ -45,10 +46,11 @@ public class EventController {
 
         boolean showEditForm = authentication!=null && userContextService.hasAnyRole("ROLE_ORGANIZER","ROLE_ADMIN");
         boolean showCommentForm = authentication != null;
-        model.addAttribute("showEditForm", showEditForm);
+        List<Comment> comments = eventOptional.get().getComments();
+        comments.sort(((c1,c2)->c2.getAdded().compareTo(c1.getAdded())));
         model.addAttribute("showCommentForm", showCommentForm);
         model.addAttribute("event", eventOptional.get());
-        model.addAttribute("comments", eventOptional.get().getComments());
+        model.addAttribute("comments", comments);
 //        model.addAttribute("users", eventService.showAllUsersAssignedToEvent(Long.parseLong(eventId)));
 
 

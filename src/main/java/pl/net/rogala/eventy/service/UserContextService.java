@@ -25,7 +25,7 @@ public class UserContextService {
         if (authentication instanceof AnonymousAuthenticationToken) {
             return false;
         }
-        return Arrays.stream(roleNames).allMatch(roleName ->hasRole(roleName));
+        return Arrays.stream(roleNames).anyMatch(roleName ->hasRole(roleName));
     }
 
 }

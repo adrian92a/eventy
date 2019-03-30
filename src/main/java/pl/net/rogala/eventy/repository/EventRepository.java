@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import pl.net.rogala.eventy.entity.Event;
 
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;

@@ -33,5 +33,7 @@ public class Comment {
     @Column(name="event_id")
     private Long eventId;
 
-
+    public CommentDto toDto() {
+        return new CommentDto(id, commentator, added, body, eventId);
+    }
 }

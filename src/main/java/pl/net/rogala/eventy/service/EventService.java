@@ -98,15 +98,15 @@ public class EventService {
 
     public void editEvent(Long eventId, EventEditForm eventEditForm) {
         Event event = eventRepository.findById(eventId).orElseThrow(() -> new RuntimeException("event not found"));
-
+    }
 
     public List<Comment> getAllCommentsToEvent(Long eventId) {
-        return commentRepository.findAllByEvent_Id(eventId);
+        return commentRepository.findAllByEventId(eventId);
 }
 
     public void addNewComment(Long eventId, String userEmail, String body) {
         Comment comment = new Comment();
-        comment.setEvent(eventRepository.findById(eventId).get());
+        comment.setEventId(eventId);
         comment.setAdded(LocalDateTime.now());
         comment.setBody(body);
         comment.setCommentator(userService.getUserByEmail(userEmail).get());

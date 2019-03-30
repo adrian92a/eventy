@@ -13,11 +13,12 @@ import java.util.List;
 
 @Repository
 public interface AssignedToEventRepository extends JpaRepository<AssignedToEvent, Long> {
-    List<User> findAllUsersAssignedToEventById(Long eventId);
+    List<AssignedToEvent> findAllByEventId(Long eventId);
 
     @Modifying
     @Transactional
     @Query(nativeQuery = true, value = "delete from assigned_to_event a where a.event_id=:eventId and a.user_id = :userId")
     void removeRecord(@Param("userId") Long userId, @Param("eventId") Long eventId);
+
 
 }

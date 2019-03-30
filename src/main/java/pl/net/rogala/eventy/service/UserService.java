@@ -10,6 +10,7 @@ import pl.net.rogala.eventy.repository.RoleRepository;
 import pl.net.rogala.eventy.repository.UserRepository;
 
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Optional;
 import java.util.Set;
@@ -73,4 +74,7 @@ public class UserService {
         }
     }
 
+    public Optional<User> getUser(String userEmail) {
+        return userRepository.findByEmail(userEmail);
+    }
 }

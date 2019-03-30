@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+</head>
+<body>
+<div class="myBox" aling="center">
+    <div align="left">
+    <span align="left">
+        <a href="/logout">
+            <button>WYLOGUJ</button>
+        </a>
+    </span>
+    </div>
+    <h1>EVENTY</h1>
+    <h3>Niebanalny system obsługi wydarzeń</h3>
+    <h3>Zalogowany użytkownik: <span th:text="${loggedUser}"></span></h3>
+    <h3>Lista aktualnych i nadchodzących wydarzeń:</h3>
+
+    <form th:object="${findEventDto}" th:action="@{/findEvents}">
+
+        <h3 style="color: #0aff13">Wyszukaj wydarzenie:</h3> <input type="text" name="name" th:field="*{name}"> <br/>
+
+        <select th:class="form-control" name="eventType" th:field="*{eventType}">
+            <option style="color:#201a80" th:each="eventType : ${eventTypes}"
+                    th:value="${eventType}"
+                    th:utext="${eventType.getLabel()}"/>
+        </select>
+
+        <br>
+        <input type="submit" value="Szukaj">
+    </form>
+
+    <div th:if="${events.isEmpty()}">
+        <span colspan="2">Nie ma żadnego wydarzenia</span>
+    </div>
+
+    <div th:each="event:${events}">
+        <h2>
+            <a th:text="${event.name}" th:href="@{/event/{eventId}(eventId=${event.id})}">Nazwa</a>
+        </h2>
+        <div th:text="${#temporals.format(event.startDate,'dd-MM-yyyy HH:mm')}">Start</div>
+    </div>
+    <footer class="footer">
+        <p>&copy; Repozytorium wydarzeń</p>
+    </footer>
+
+</div>
+</body>
+</html>
+

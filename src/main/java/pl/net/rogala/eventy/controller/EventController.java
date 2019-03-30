@@ -124,8 +124,9 @@ public class EventController {
         if (bindingResult.hasErrors()) {
             return "event/newEventForm";
         }
-        eventService.addNewEvent(newEventForm, authentication);
-        return "redirect:/home";
+        eventService.addNewEvent(authentication);
+        return "/home";
+
     }
 
     @GetMapping("/findEvents")

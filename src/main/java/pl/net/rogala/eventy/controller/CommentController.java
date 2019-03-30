@@ -10,6 +10,8 @@ import pl.net.rogala.eventy.form.CommentEditForm;
 import pl.net.rogala.eventy.service.CommentService;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class CommentController {
@@ -39,6 +41,8 @@ public class CommentController {
     if(commentService.showSingleComment(commentId).get().getCommentator().getEmail()==authentication.getName()) {
         model.addAttribute("commentEditForm", new CommentEditForm());
         model.addAttribute("comment", commentService.showSingleComment(commentId).get());
+
+        System.out.println("jest ok---------------------");
         return "event/editComment";
     }
         return "redirect:/event/" + commentService.getCommentEventId(Long.valueOf(commentId));

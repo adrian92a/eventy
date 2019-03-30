@@ -42,10 +42,23 @@
     </div>
 
     <br>
-    <div style="border: solid green 2px" th:each="comment:${comments}">
+
+    <div style="border: solid green 2px"  th:each="comment:${comments}">
         <p th:text="${comment.body}"></p>
         <p th:text="${comment.added}"></p>
         <p th:text="${comment.getCommentator().nick}"></p>
+
+        <h2 th:value="${comment.id}"   th:if= "${loggedUser.getName()==comment.getCommentator().email}" >
+            <!--<form method="get" th:action="@{/event/{id}/comment/{commentId}/editComment(commentId=${comment.id},id=${comment.eventId})}">-->
+                <form method="get" th:action="@{/comment/{commentId}/editComment(commentId=${comment.id})}">
+                <input type="hidden" name="commentId" th:value="${comment.id}">
+                <br>
+                <input type="submit" value="Edytuj komentarz">
+            </form>
+        </h2>
+
+
+
         <br>
     </div>
 </div>

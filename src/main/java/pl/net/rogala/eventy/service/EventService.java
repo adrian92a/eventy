@@ -60,6 +60,11 @@ public class EventService {
                 booleanExpression = booleanExpression.and(event.startDate.after(LocalDate.now()));
             }
         }
+        if (findEventDto.getOwnerName()!= null) {
+            booleanExpression = booleanExpression.and(event.owner().nick.containsIgnoreCase(findEventDto.getOwnerName()));
+
+
+        }
 
         List<Event> all = eventRepository.findAll(booleanExpression);
         return all.stream().map(Event::toEventDto).collect(Collectors.toList());

@@ -6,22 +6,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.net.rogala.eventy.entity.Event;
-import pl.net.rogala.eventy.form.EventEditForm;
-import pl.net.rogala.eventy.form.NewEventForm;
-import pl.net.rogala.eventy.model.EventDto;
-import pl.net.rogala.eventy.model.EventType;
-import pl.net.rogala.eventy.model.FindEventDto;
+import pl.net.rogala.eventy.form.CommentEditForm;
 import pl.net.rogala.eventy.service.CommentService;
 
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class CommentController {
 
     private CommentService commentService;
+
 
     @Autowired
     public CommentController(CommentService commentService) {
@@ -34,7 +28,31 @@ public class CommentController {
                                        @RequestParam String eventId,
                                        Authentication authentication
     ) {
+
         commentService.addNewComment(Long.parseLong(id), authentication.getName(), commentBody);
         return "redirect:/event/" + eventId;
     }
+
+    @GetMapping("/comment/{commentId}/editComment")
+    public String handleEditCommentForm(@RequestParam Long commentId,
+                                       Authentication authentication,Model model) {
+    if(commentService.showSingleComment(commentId).get().getCommentator().getEmail()==authentication.getName()) {
+        model.addAttribute("commentEditForm", new CommentEditForm());
+        model.addAttribute("comment", commentService.showSingleComment(commentId).get());
+
+        System.out.println("jest ok---------------------");
+        return "event/editComment";
+    }
+        return "redirect:/event/" + commentService.getCommentEventId(Long.valueOf(commentId));
+    }
+    @PostMapping("/comment/{commentId}/editComment")
+    public String handleEditComment(@PathVariable String commentId,
+            @ModelAttribute @Valid CommentEditForm commentEditForm ,
+                                    BindingResult bindingResult)
+    {
+
+        commentService.editComment(Long.valueOf(commentId),commentEditForm);
+        return "redirect:/event/" + commentService.getCommentEventId(Long.valueOf(commentId));
+    }
+
 }

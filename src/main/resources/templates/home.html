@@ -29,8 +29,9 @@
 <form th:object="${findEventDto}" th:action="@{/findEvents}" >
 
 
-    Szukaj posta: <input type="text"  name="name" th:field="*{name}" > <br/>
-
+    <h3 style="color: #201a80">Szukaj wydarzenia:</h3> <input type="text" name="name" th:field="*{name}" > <br/>
+    <h3 style="color: #201a80">Autor wydarzenia:</h3> <input type="text" name="name" th:field="*{ownerName}" > <br/>
+    <h3 style="color: #201a80">Data wydarzenia:</h3>
     <select th:class="form-control" name="eventType" th:field="*{eventType}" >
         <option th:each="eventType : ${eventTypes}"
                 th:value="${eventType}"

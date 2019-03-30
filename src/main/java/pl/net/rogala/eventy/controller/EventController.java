@@ -2,8 +2,6 @@ package pl.net.rogala.eventy.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.net.rogala.eventy.entity.Event;
 import java.util.Optional;
 import org.springframework.validation.BindingResult;
-import pl.net.rogala.eventy.entity.User;
 import pl.net.rogala.eventy.form.EventEditForm;
 import pl.net.rogala.eventy.form.NewEventForm;
 import pl.net.rogala.eventy.model.EventDto;
@@ -28,26 +25,19 @@ import pl.net.rogala.eventy.repository.UserRepository;
 import pl.net.rogala.eventy.service.EventService;
 
 import javax.validation.Valid;
-import java.util.Optional;
-
-import pl.net.rogala.eventy.form.NewEventForm;
-import pl.net.rogala.eventy.service.UserService;
 
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class EventController {
 
     private EventService eventService;
-
+    private UserRepository userRepository;
     @Autowired
-    public UserRepository userRepository;
-    @Autowired
-    public EventController(EventService eventService) {
+    public EventController(EventService eventService, UserRepository userRepository) {
         this.eventService = eventService;
+        this.userRepository = userRepository;
     }
 
 
@@ -62,6 +52,7 @@ public class EventController {
         model.addAttribute("event", eventOptional.get());
         model.addAttribute("comments", eventOptional.get().getComments());
 //        model.addAttribute("users", eventService.showAllUsersAssignedToEvent(Long.parseLong(eventId)));
+        model.addAttribute("loggedUser", authentication);
 
 
         return "event/showSingleEvent";
@@ -93,6 +84,7 @@ public class EventController {
         }
         model.addAttribute("event", eventOptional.get());
         model.addAttribute("eventEditForm", new EventEditForm());
+
 
         return "event/editEvent";
     }
@@ -129,14 +121,13 @@ public class EventController {
     public String showMainPage(
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "eventType", required = false) EventType eventType,
-            @RequestParam(value = "ownerName", required = false) String ownerName,
+            @RequestParam(value = "ownerName", required = false) String ownerNick,
             @ModelAttribute("findEventDto") FindEventDto findEventDto,Authentication authentication,
             Model model) {
         model.addAttribute("eventTypes", EventType.values());
         findEventDto.setName(name);
-        findEventDto.setOwnerName(ownerName);
+        findEventDto.setOwnerName(ownerNick);
         findEventDto.setEventType(eventType);
-        findEventDto.setOwnerName(ownerName);
         List<EventDto> events = eventService.getEvents(findEventDto);
 
         model.addAttribute(     "events", events);

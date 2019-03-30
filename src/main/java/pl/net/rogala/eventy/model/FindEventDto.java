@@ -7,7 +7,7 @@ import java.util.List;
 public class FindEventDto {
     private String name;
     private EventType eventType;
-    private User owners;
+    private User owner;
     private String ownerName;
 
     public String getOwnerName() {
@@ -29,10 +29,10 @@ public class FindEventDto {
         this.eventType = eventType;
     }
 
-    public FindEventDto(String name, EventType eventType, User owners) {
+    public FindEventDto(String name, EventType eventType, User owner) {
         this.name = name;
         this.eventType = eventType;
-        this.owners = owners;
+        this.owner = owner;
     }
 
     public String getName() {
@@ -59,10 +59,10 @@ public class FindEventDto {
     }
 
     public User getOwner() {
-        return owners;
+        return owner;
     }
 
     public void setOwner(User owner) {
-        this.owners = owner;
+        this.owner = owner;
     }
 }

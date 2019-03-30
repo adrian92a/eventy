@@ -1,6 +1,7 @@
 package pl.net.rogala.eventy.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Role {
 
 //    public Role() {
@@ -23,4 +25,6 @@ public class Role {
     public Role(String roleName){
         this.roleName = roleName;
     }
+
+
 }

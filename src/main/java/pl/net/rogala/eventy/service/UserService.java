@@ -9,6 +9,12 @@ import pl.net.rogala.eventy.form.UserRegisterForm;
 import pl.net.rogala.eventy.repository.RoleRepository;
 import pl.net.rogala.eventy.repository.UserRepository;
 
+
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+
 @Service
 public class UserService {
     private UserRepository userRepository;
@@ -33,18 +39,38 @@ public class UserService {
     }
 
     /**
+     * Adding new role (organizer) to User's Set of Roles
+     *
+     * @param user
+     */
+//
+    public void addOrganizerRole(User user){
+        Role role = roleRepository.findRoleByRoleName("ROLE_ORGANIZER").get();
+        Set<Role> roles = user.getRoles();
+        roles.add(role);
+    }
+
+    /**
      * Register new user in database
      *
      * @param userRegisterForm
      */
 
-// TODO: Check if given in userRegisterForm email and nick are present in database (both should be unique)
     public void registerUser(UserRegisterForm userRegisterForm) {
-        User user = new User();
-        user.setEmail(userRegisterForm.getEmail());
-        user.setNick(userRegisterForm.getNick());
-        user.setPassword(passwordEncoder.encode(userRegisterForm.getPassword()));
-        setDefaultRole(user);
-        userRepository.save(user);
+        Optional<User> userByEmail = userRepository.findByEmail(userRegisterForm.getEmail());
+        if (!userByEmail.isPresent()) {
+            User user = new User();
+            user.setEmail(userRegisterForm.getEmail());
+            user.setNick(userRegisterForm.getNick());
+            user.setPassword(passwordEncoder.encode(userRegisterForm.getPassword()));
+            setDefaultRole(user);
+            userRepository.save(user);
+        } else {
+            System.out.println("Taki użytkownik istnieje w bazie");
+        }
+    }
+
+    public Optional<User> getUser(String userEmail) {
+        return userRepository.findByEmail(userEmail);
     }
 }

@@ -39,8 +39,6 @@ public class CommentController {
     if(commentService.showSingleComment(commentId).get().getCommentator().getEmail()==authentication.getName()) {
         model.addAttribute("commentEditForm", new CommentEditForm());
         model.addAttribute("comment", commentService.showSingleComment(commentId).get());
-
-        System.out.println("jest ok---------------------");
         return "event/editComment";
     }
         return "redirect:/event/" + commentService.getCommentEventId(Long.valueOf(commentId));

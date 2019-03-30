@@ -10,8 +10,6 @@ import pl.net.rogala.eventy.form.CommentEditForm;
 import pl.net.rogala.eventy.service.CommentService;
 
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class CommentController {

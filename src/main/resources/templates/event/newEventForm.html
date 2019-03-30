@@ -16,7 +16,7 @@
     <div align="center">
         <h1>Dodaj wydarzenie</h1>
     </div>
-    <form method="post" th:action="@{/addEvent}" th:object="${newEventForm}">
+    <form class="myMain" method="post" th:action="@{/addEvent}" th:object="${newEventForm}">
         <div th:align="center">
             <br> Nazwa: <input type="text" th:field="*{name}" th:errorClass="error">
             <span class="error" th:errors="*{name}"></span>

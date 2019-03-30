@@ -1,30 +1,39 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    <style>
+
+        .box {
+            border: 2px solid red;
+            border-radius: 8px;
+            background-color: lightsteelblue;
+            margin: 25px 350px 50px 350px;
+            padding: 8%;
+        }
+
+        a:link, a:visited {
+            background-color: cornflowerblue;
+            color: white;
+            padding: 15px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        a:hover, a:active {
+            background-color: red;
+        }
+    </style>
 </head>
 <body>
-<div class="myBox" align="center">
-    <span>
-        <a href="/home">
-            <button>WYDARZENIA</button>
-        </a>
-        <a href="/login">
-            <button>LOGOWANIE</button>
-        </a>
-        <a href="/register">
-            <button>REJESTRACJA</button>
-        </a>
-    </span>
+<div class="box" align="center">
     <h1>EVENTY</h1>
-    <h2>Niebanalny system obsługi wydarzeń</h2>
+    <h3>Niebanalny system obsługi wydarzeń</h3>
+    <br><a href="/login">Zaloguj się</a>
     <br>
-    <footer>
-        <p>&copy; Repozytorium wydarzeń</p>
-    </footer>
-
+    <br><a href="/register">Zarejestruj się</a>
 </div>
 </body>
 </html>

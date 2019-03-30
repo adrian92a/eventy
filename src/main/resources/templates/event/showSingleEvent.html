@@ -1,37 +1,21 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title th:text="${event.name}">SingleEvent</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
-
 </head>
 <body>
-<div class="myBox" align="center">
-    <div align="left">
-        <a href="/home">
-            <button>WYDARZENIA</button>
-        </a>
-    </div>
-    <div class="myMain">
-        <h1 th:text="${event.name}">Event title</h1>
-        Data rozpoczęcia: <span
-            th:text="${#temporals.format(event.startDate,'dd-MM-yyyy HH:mm')}">2019-03-02 11:07:10</span>
-        <br>Data zakończenia: <span
-            th:text="${#temporals.format(event.stopDate, 'dd-MM-yyyy HH:mm')}">2019-03-02 11:07:10</span>
-        <p>Opis wydarzenia:<br>
-            <span th:text="${event.decription}"></span></p>
-        <p>Organizator: <span th:text="${event.getOwner().getNick()}"></span></p>
-        <br>
-    </div>
-        <aside class="myAside">
-            <p>Lista zapisanych uzytkownkow:</p>
-            <div th:if="${showAssignedUserToEvent}" th:each="user:${assignedToUserEntity}">
-                <p th:text="${user.getUser().getNick()}"></p>
-            </div>
-        </aside>
-    <div class="myEdit" th:if="${showEditForm}">
+<div align="center">
+    <h1 th:text="${event.name}">Event title</h1>
+    Data rozpoczęcia: <span
+        th:text="${#temporals.format(event.startDate,'dd-MM-yyyy HH:mm')}">2019-03-02 11:07:10</span>
+    <br>Data zakończenia: <span
+        th:text="${#temporals.format(event.stopDate, 'dd-MM-yyyy HH:mm')}">2019-03-02 11:07:10</span>
+    <p>Opis wydarzenia:<br>
+        <span th:text="${event.decription}"></span></p>
+    <p>Właściciel wydarzenia: <span th:text="${event.getOwner().getNick()}"></span></p>
+    <br>
+    <div th:if="${showEditForm}">
         <form method="get" th:action="@{/event/editEvent/{eventId} (eventId=${event.id})}">
             <input type="submit" value="Edytuj">
         </form>
@@ -44,31 +28,54 @@
             <br>
             <input type="submit" value="Dodaj komentarz">
         </form>
+    </div>
+
+    <div>
+        <form method="post" th:action="@{/event/{id}/removeUserFromEvent(id=${event.id})}">
+            <br>
+            <input type="submit" value="Wypisz z wydarzenia">
+        </form>
         <div>
             <form method="post" th:action="@{/event/{id}/addUserToEvent(id=${event.id})}">
                 <br>
-                <input type="submit" value="Zapisz się na wydarzenie">
+                <input type="submit" value="Zapisz na wydarzenie">
             </form>
-
+        </div>
+        <div>
             <form method="post" th:action="@{/event/{id}/removeUserFromEvent(id=${event.id})}">
                 <br>
-                <input type="submit" value="Wypisz się z wydarzenia">
+                <input type="submit" value="Wypisz z wydarzenia">
             </form>
         </div>
-        <br>
-        <div class="commentOut">
-            <p>Komentarze:</p>
-            <div class="commentIn" th:each="comment:${comments}">
-                <p th:text="${comment.body}"></p>
-                <p th:text="${comment.added}"></p>
-                <p th:text="${comment.getCommentator().nick}"></p>
-                <br>
-            </div>
-        </div>
+    <div>
+        <form method="post" th:action="@{/event/{id}/removeUserFromEvent(id=${event.id})}">
+            <br>
+            <input type="submit" value="Wypisz z wydarzenia">
+        </form>
     </div>
-    <footer class="footer">
-        <p>&copy; Repozytorium wydarzeń</p>
-    </footer>
+
+    <br>
+
+    <div style="border: solid green 2px"  th:each="comment:${comments}">
+        <p th:text="${comment.body}"></p>
+        <p th:text="${comment.added}"></p>
+        <p th:text="${comment.getCommentator().nick}"></p>
+
+        <h2 th:value="${comment.id}"   th:if= "${loggedUser.getName()==comment.getCommentator().email}" >
+            <!--<form method="get" th:action="@{/event/{id}/comment/{commentId}/editComment(commentId=${comment.id},id=${comment.eventId})}">-->
+                <form method="get" th:action="@{/comment/{commentId}/editComment(commentId=${comment.id})}">
+                <input type="hidden" name="commentId" th:value="${comment.id}">
+                <br>
+                <input type="submit" value="Edytuj komentarz">
+            </form>
+        </h2>
+
+
+
+        <br>
+    </div>
+</div>
+
 
 </div>
 </body>

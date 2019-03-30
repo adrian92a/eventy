@@ -51,10 +51,12 @@ public class UserController {
      * Shows logged user email (login) on "home" website
      *
      * @param model
+     * @param authentication
      * @return "home" page template
      */
     @RequestMapping(value = "/home")
-    public String home(Model model, Model modelForEventList) {
+    public String home(Model model, Authentication authentication, Model modelForEventList) {
+        model.addAttribute("loggedUser", authentication.getName());
         modelForEventList.addAttribute("events",eventService.showEventList());
         model.addAttribute("findEventDto",new FindEventDto());
         model.addAttribute("eventTypes", EventType.values());

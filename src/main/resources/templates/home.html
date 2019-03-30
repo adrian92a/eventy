@@ -1,48 +1,51 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    <style>
+        a:link, a:visited {
+            background-color: cornflowerblue;
+            color: white;
+            padding: 15px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        a:hover, a:active {
+            background-color: red;
+        }
+    </style>
 </head>
 <body>
-<div class="myBox" align="center">
-    <div align="left">
-    <span align="left">
-        <a href="/addEvent">
-            <button>DODAJ WYDARZENIE</button>
-        </a>
-        <a href="/">
-            <button>START</button>
-        </a>
-        <a href="/logout">
-            <button>WYLOGUJ</button>
-        </a>
-    </span>
-    </div>
+<div align="center">
     <h1>EVENTY</h1>
     <h3>Niebanalny system obsługi wydarzeń</h3>
     <h3>Zalogowany użytkownik: <span th:text="${loggedUser}"></span></h3>
     <h3>Lista aktualnych i nadchodzących wydarzeń:</h3>
 
-    <div class="myFind">
-        <form th:object="${findEventDto}" th:action="@{/findEvents}">
-            <div class="myFind">
-                Wyszukaj wydarzenie: <input type="text" name="name" th:field="*{name}"> <br/>
 
-                <select th:class="form-control" name="eventType" th:field="*{eventType}">
-                    <option th:each="eventType : ${eventTypes}"
-                            th:value="${eventType}"
-                            th:utext="${eventType.getLabel()}"/>
-                </select>
-            </div>
-            <input type="submit" value="Szukaj">
-            <br>
-        </form>
-    </div>
-    <div th:if="${events.isEmpty()}">
-        <span colspan="2">Nie ma żadnego wydarzenia</span>
-    </div>
+<form th:object="${findEventDto}" th:action="@{/findEvents}" >
+
+
+    <h3 style="color: #201a80">Szukaj wydarzenia:</h3> <input type="text" name="name" th:field="*{name}" > <br/>
+    <h3 style="color: #201a80">Autor wydarzenia:</h3> <input type="text" name="name" th:field="*{ownerName}" > <br/>
+    <h3 style="color: #201a80">Data wydarzenia:</h3>
+    <select th:class="form-control" name="eventType" th:field="*{eventType}" >
+        <option th:each="eventType : ${eventTypes}"
+                th:value="${eventType}"
+                th:utext="${eventType.getLabel()}"/>
+    </select>
+
+
+
+    <br>
+    <input type="submit" value="Submit">
+</form>
+<div th:if="${events.isEmpty()}">
+    <span colspan="2">Nie ma żadnego wydarzenia</span>
+</div>
     <div th:if="${eventList.isEmpty()}">
         <span colspan="2">Nie ma żadnego wydarzenia</span>
     </div>
@@ -61,11 +64,9 @@
 
 
         <div th:text="${event.getOwner().nick}"></div>
-    </div>
-    <footer>
-        <p>&copy; Repozytorium wydarzeń</p>
-    </footer>
 
+    </div>
+    <a href="/logout">Logout</a>
 </div>
 </body>
 </html>

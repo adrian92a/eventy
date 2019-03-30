@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import pl.net.rogala.eventy.entity.User;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -25,5 +26,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @return Optional<User>
      */
     Optional<User>findByNick(String nick);
-
+    List<User> findAllByNick(String nick);
 }

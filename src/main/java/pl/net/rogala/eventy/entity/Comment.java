@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.convert.Jsr310Converters;
 import pl.net.rogala.eventy.model.CommentDto;
 
 import javax.persistence.*;
@@ -34,7 +33,5 @@ public class Comment {
     @Column(name="event_id")
     private Long eventId;
 
-    public CommentDto toDto() {
-        return new CommentDto(id, commentator, added, body, eventId);
-    }
+
 }
